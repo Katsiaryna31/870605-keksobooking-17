@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
-* Студент: [Екатерина Якубовская](https://up.htmlacademy.ru/javascript/17/user/870605).
-* Наставник: `Неизвестно`.
+Студент: [Екатерина Якубовская](https://up.htmlacademy.ru/adaptive/16/user/870605).
+* Наставник: [Денис Быков](https://htmlacademy.ru/profile/id66426).
 
 ---
 
