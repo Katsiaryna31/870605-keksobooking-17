@@ -1,8 +1,10 @@
+'use strict'
+
 var NUMBER = 9;
 
 var getAvatar = function (k) {
   return k < NUMBER ? 'img/avatars/user' + '0' + k + '.png' : 'img/avatars/user' + k + '.png';
-}
+};
 
 var kindPlace = ['palace', 'flat', 'house', 'bungalo'];
 
@@ -16,7 +18,7 @@ var getAdvertising = function () {
     var typeLive = Math.floor(Math.random() * kindPlace.length);
     var oneAdvert = {
       author: {
-        avatar: getAvatar(i+1)
+        avatar: getAvatar (i+1)
       },
       offer: {
         type: kindPlace[typeLive]
@@ -52,7 +54,7 @@ var renderAdvert = function (oneAdvert) {
 };
 
 var fragment = document.createDocumentFragment();
-var advertisments = getAdvertising(avatar, type);
+var advertisments = getAdvertising();
 for (var j = 0; j < advertisments.length; j++) {
   fragment.appendChild(renderAdvert(advertisments[j]));
 }
