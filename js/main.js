@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var NUMBER = 10;
 var NUMBER_ADVERTS = 8;
@@ -13,11 +13,11 @@ var getRandomValue = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-var getOneAdvert = function(z) {
+var getOneAdvert = function (z) {
   var typeLive = Math.floor(Math.random() * KIND_PLACE.length);
   var oneAdvert = {
     author: {
-      avatar: getAvatar (z+1)
+      avatar: getAvatar(z + 1)
     },
     offer: {
       type: KIND_PLACE[typeLive]
@@ -26,9 +26,9 @@ var getOneAdvert = function(z) {
       x: getRandomValue(1, 1200) + 'px',
       y: getRandomValue(130, 630) + 'px'
     }
-  }
+  };
   return oneAdvert;
-}
+};
 
 var getAdvertising = function () {
   var advertisement = [];
