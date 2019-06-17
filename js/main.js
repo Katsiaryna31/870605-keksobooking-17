@@ -65,26 +65,26 @@ var renderAdvert = function (oneAdvertisment) {
   return oneAdvertElement;
 };
 
-var takePinList = function() {
+var takePinList = function () {
   var fragment = document.createDocumentFragment();
   var advertisments = getAdvertising();
   for (var j = 0; j < advertisments.length; j++) {
     fragment.appendChild(renderAdvert(advertisments[j]));
   }
   pinList.appendChild(fragment);
-}
+};
 
 var plusAttribute = function (element) {
-  for (var i=0; i < element.length; i++) {
+  for (var i = 0; i < element.length; i++) {
     element[i].setAttribute('disabled', 'disabled');
   }
-}
+};
 
 var minusAttribute = function (element) {
-  for (var i=0; i < element.length; i++) {
+  for (var i = 0; i < element.length; i++) {
     element[i].removeAttribute('disabled', 'disabled');
   }
-}
+};
 
 var addForm = document.querySelector('.ad-form');
 var addFormInsides = addForm.querySelectorAll('fieldset > input, select');
@@ -98,11 +98,11 @@ var addressForm = document.querySelector('#address');
 
 var mainPin = document.querySelector('.map__pin--main');
 
-mainPin.addEventListener('mouseup', function() {
+mainPin.addEventListener('mouseup', function () {
   activatePage();
 });
 
-var activatePage = function() {
+var activatePage = function () {
   map.classList.remove('map--faded');
   takePinList();
   addForm.classList.remove('ad-form--disabled');
