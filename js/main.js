@@ -7,7 +7,6 @@ var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
 var pointerX = PIN_WIDTH / 2;
 var MAIN_PAGE_WIDTH = 1200;
-var MAIN_PIN_LOCATION_X = 570;
 var MAIN_PIN_LOCATION_Y = 375;
 var MAIN_PIN_RADIUS = 156;
 var mainPinCenterX = MAIN_PAGE_WIDTH / 2;
@@ -78,17 +77,17 @@ for (var i = 0; i < pinElemList.length; i++) {
   if (!pinElemList[i].classList.contains('map__pin--main')) {
     pinElemList[i].parentNode.removeChild(pinElemList[i]);
   }
-};
+}
 
 var activateForm = function (element) {
-  for (var i = 0; i < element.length; i++) {
-    element[i].setAttribute('disabled', 'disabled');
+  for (var j = 0; j < element.length; j++) {
+    element[j].setAttribute('disabled', 'disabled');
   }
 };
 
 var deactivateForm = function (element) {
-  for (var i = 0; i < element.length; i++) {
-    element[i].removeAttribute('disabled', 'disabled');
+  for (var z = 0; z < element.length; z++) {
+    element[z].removeAttribute('disabled', 'disabled');
   }
 };
 
@@ -110,8 +109,8 @@ var activatePage = function () {
   addForm.classList.remove('ad-form--disabled');
   deactivateForm(mapFiltersInsides);
   deactivateForm(addFormInsides);
-  for (var i = 0; i < pinElemList.length; i++) {
-    pinList.appendChild(pinElemList[i]);
+  for (var k = 0; k < pinElemList.length; k++) {
+    pinList.appendChild(pinElemList[k]);
   }
 };
 
