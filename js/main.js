@@ -80,8 +80,8 @@ for (var i = 0; i < pinElemList.length; i++) {
 }
 
 var activateForm = function (element) {
-  for (var j = 0; j < element.length; j++) {
-    element[j].setAttribute('disabled', 'disabled');
+  for (var m = 0; m < element.length; m++) {
+    element[m].setAttribute('disabled', 'disabled');
   }
 };
 
