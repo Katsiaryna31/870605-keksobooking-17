@@ -6,10 +6,11 @@ var KIND_PLACE = ['palace', 'flat', 'house', 'bungalo'];
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
 var pointerX = PIN_WIDTH / 2;
+var MAIN_PAGE_WIDTH = 1200;
 var MAIN_PIN_LOCATION_X = 570;
 var MAIN_PIN_LOCATION_Y = 375;
 var MAIN_PIN_RADIUS = 156;
-var mainPinCenterX = MAIN_PIN_LOCATION_X + MAIN_PIN_RADIUS / 2;
+var mainPinCenterX = MAIN_PAGE_WIDTH / 2;
 var mainPinCenterY = MAIN_PIN_LOCATION_Y + MAIN_PIN_RADIUS / 2;
 var mainPinPosition = mainPinCenterX + ', ' + mainPinCenterY;
 
@@ -65,22 +66,27 @@ var renderAdvert = function (oneAdvertisment) {
   return oneAdvertElement;
 };
 
-var takePinList = function () {
-  var fragment = document.createDocumentFragment();
-  var advertisments = getAdvertising();
-  for (var j = 0; j < advertisments.length; j++) {
-    fragment.appendChild(renderAdvert(advertisments[j]));
+var fragment = document.createDocumentFragment();
+var advertisments = getAdvertising();
+for (var j = 0; j < advertisments.length; j++) {
+  fragment.appendChild(renderAdvert(advertisments[j]));
+}
+pinList.appendChild(fragment);
+
+var pinElemList = document.querySelectorAll('.map__pin');
+for (var i = 0; i < pinElemList.length; i++) {
+  if (!pinElemList[i].classList.contains('map__pin--main')) {
+    pinElemList[i].parentNode.removeChild(pinElemList[i]);
   }
-  pinList.appendChild(fragment);
 };
 
-var plusAttribute = function (element) {
+var activateForm = function (element) {
   for (var i = 0; i < element.length; i++) {
     element[i].setAttribute('disabled', 'disabled');
   }
 };
 
-var minusAttribute = function (element) {
+var deactivateForm = function (element) {
   for (var i = 0; i < element.length; i++) {
     element[i].removeAttribute('disabled', 'disabled');
   }
@@ -88,25 +94,25 @@ var minusAttribute = function (element) {
 
 var addForm = document.querySelector('.ad-form');
 var addFormInsides = addForm.querySelectorAll('fieldset > input, select');
-plusAttribute(addFormInsides);
+activateForm(addFormInsides);
 
 var mapFilters = document.querySelector('.map__filters');
 var mapFiltersInsides = mapFilters.querySelectorAll('fieldset > input, select');
-plusAttribute(mapFiltersInsides);
+activateForm(mapFiltersInsides);
 
 var addressForm = document.querySelector('#address');
+addressForm.value = mainPinPosition;
 
 var mainPin = document.querySelector('.map__pin--main');
 
-mainPin.addEventListener('mouseup', function () {
-  activatePage();
-});
-
 var activatePage = function () {
   map.classList.remove('map--faded');
-  takePinList();
   addForm.classList.remove('ad-form--disabled');
-  minusAttribute(mapFiltersInsides);
-  minusAttribute(addFormInsides);
-  addressForm.value = mainPinPosition;
+  deactivateForm(mapFiltersInsides);
+  deactivateForm(addFormInsides);
+  for (var i = 0; i < pinElemList.length; i++) {
+    pinList.appendChild(pinElemList[i]);
+  }
 };
+
+mainPin.addEventListener('mouseup', activatePage);
