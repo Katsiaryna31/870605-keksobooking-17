@@ -21,7 +21,7 @@ var getRandomValue = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-var getOneAdvert = function (serialNumberAdvert) {
+var getAdvert = function (serialNumberAdvert) {
   var typeLive = Math.floor(Math.random() * KIND_PLACE.length);
   return {
     author: {
@@ -31,8 +31,8 @@ var getOneAdvert = function (serialNumberAdvert) {
       type: KIND_PLACE[typeLive]
     },
     location: {
-      x: getRandomValue(1, 1200) + pointerX + 'px',
-      y: getRandomValue(130, 630) + PIN_HEIGHT + 'px'
+      x: getRandomValue(91, 1107) + pointerX + 'px',
+      y: getRandomValue(130, 540) + PIN_HEIGHT + 'px'
     }
   };
 };
@@ -40,7 +40,7 @@ var getOneAdvert = function (serialNumberAdvert) {
 var getAdvertising = function () {
   var advertisement = [];
   for (var i = 0; i < NUMBER_ADVERTS; i++) {
-    var oneAd = getOneAdvert(i);
+    var oneAd = getAdvert(i);
     advertisement.push(oneAd);
   }
   return advertisement;
@@ -99,7 +99,12 @@ var mapFilters = document.querySelector('.map__filters');
 var mapFiltersInsides = mapFilters.querySelectorAll('fieldset > input, select');
 activateForm(mapFiltersInsides);
 
+for (var p = 0; p < addFormInsides.length; p++) {
+  addFormInsides[p].setAttribute('required', 'required');
+};
+
 var addressForm = document.querySelector('#address');
+addressForm.setAttribute('readonly', 'readonly');
 addressForm.value = mainPinPosition;
 
 var mainPin = document.querySelector('.map__pin--main');
@@ -115,3 +120,30 @@ var activatePage = function () {
 };
 
 mainPin.addEventListener('mouseup', activatePage);
+
+var timeIn = document.querySelector('#timein');
+var timeOut = document.querySelector('#timeout');
+timeIn.selectedIndex = timeOut.selectedIndex;
+
+
+var timeIn = document.querySelector('#timein');
+var timeOut = document.querySelector('#timeout');
+timeIn.onchange = function() {
+  timeOut.selectedIndex = timeIn.selectedIndex;
+};
+timeOut.onchange = function() {
+  timeIn.selectedIndex = timeOut.selectedIndex;
+};
+
+var price = document.querySelector('#price');
+var priceMinValue = ['0', '1000', '5000', '10000']
+var typePlace = document.querySelector('#type');
+var arrayPlace = typePlace.querySelectorAll('option');
+typePlace.onchange = function () {
+  for (var b = 0; b < arrayPlace.length; b++) {
+    if (typePlace.selectedIndex == b) {
+      price.setAttribute('min', priceMinValue[b]);
+      price.placeholder = priceMinValue[b];
+    }
+  }
+};
