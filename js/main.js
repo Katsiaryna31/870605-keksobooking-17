@@ -101,7 +101,7 @@ activateForm(mapFiltersInsides);
 
 for (var p = 0; p < addFormInsides.length; p++) {
   addFormInsides[p].setAttribute('required', 'required');
-};
+}
 
 var addressForm = document.querySelector('#address');
 addressForm.setAttribute('readonly', 'readonly');
@@ -123,25 +123,20 @@ mainPin.addEventListener('mouseup', activatePage);
 
 var timeIn = document.querySelector('#timein');
 var timeOut = document.querySelector('#timeout');
-timeIn.selectedIndex = timeOut.selectedIndex;
-
-
-var timeIn = document.querySelector('#timein');
-var timeOut = document.querySelector('#timeout');
-timeIn.onchange = function() {
+timeIn.onchange = function () {
   timeOut.selectedIndex = timeIn.selectedIndex;
 };
-timeOut.onchange = function() {
+timeOut.onchange = function () {
   timeIn.selectedIndex = timeOut.selectedIndex;
 };
 
 var price = document.querySelector('#price');
-var priceMinValue = ['0', '1000', '5000', '10000']
+var priceMinValue = ['0', '1000', '5000', '10000'];
 var typePlace = document.querySelector('#type');
 var arrayPlace = typePlace.querySelectorAll('option');
 typePlace.onchange = function () {
   for (var b = 0; b < arrayPlace.length; b++) {
-    if (typePlace.selectedIndex == b) {
+    if (typePlace.selectedIndex === b) {
       price.setAttribute('min', priceMinValue[b]);
       price.placeholder = priceMinValue[b];
     }
