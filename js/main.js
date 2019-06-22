@@ -126,10 +126,10 @@ var resetPage = function () {
   deactivateForm(addFormInsides);
   map.classList.add('map--faded');
   addForm.classList.add('ad-form--disabled');
-  for (var i = 0; i < pinElemList.length; i++) {
-    if (!pinElemList[i].classList.contains('map__pin--main')) {
-      pinElemList[i].parentNode.removeChild(pinElemList[i]);
-    };
+  for (var n = 0; n < pinElemList.length; n++) {
+    if (!pinElemList[n].classList.contains('map__pin--main')) {
+      pinElemList[n].parentNode.removeChild(pinElemList[n]);
+    }
   }
 };
 
@@ -160,5 +160,5 @@ var resetForm = addForm.querySelector('.ad-form__reset');
 resetForm.addEventListener('click', function () {
   addForm.reset();
   addressForm.setAttribute('value', mainPinPosition);
-  resetPage ();
+  resetPage();
 });
