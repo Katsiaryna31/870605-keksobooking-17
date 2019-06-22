@@ -145,7 +145,7 @@ typePlace.onchange = function () {
 };
 
 var resetForm = addForm.querySelector('.ad-form__reset');
-resetForm.addEventListener('click', function() {
+resetForm.addEventListener('click', function () {
   addForm.reset();
   addressForm.setAttribute('value', mainPinPosition);
 });
