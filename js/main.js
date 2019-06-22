@@ -9,6 +9,7 @@ var pointerX = PIN_WIDTH / 2;
 var MAIN_PAGE_WIDTH = 1200;
 var MAIN_PIN_LOCATION_Y = 375;
 var MAIN_PIN_RADIUS = 156;
+var PRICE_MIN_VALUE = ['0', '1000', '5000', '10000'];
 var mainPinCenterX = MAIN_PAGE_WIDTH / 2;
 var mainPinCenterY = MAIN_PIN_LOCATION_Y + MAIN_PIN_RADIUS / 2;
 var mainPinPosition = mainPinCenterX + ', ' + mainPinCenterY;
@@ -40,8 +41,8 @@ var getAdvert = function (serialNumberAdvert) {
 var getAdvertising = function () {
   var advertisement = [];
   for (var i = 0; i < NUMBER_ADVERTS; i++) {
-    var oneAd = getAdvert(i);
-    advertisement.push(oneAd);
+    var advert = getAdvert(i);
+    advertisement.push(advert);
   }
   return advertisement;
 };
@@ -56,13 +57,13 @@ var pin = document.querySelector('#pin')
     .querySelector('.map__pin');
 
 var renderAdvert = function (oneAdvertisment) {
-  var oneAdvertElement = pin.cloneNode(true);
+  var advertElement = pin.cloneNode(true);
 
-  oneAdvertElement.style.left = oneAdvertisment.location.x;
-  oneAdvertElement.style.top = oneAdvertisment.location.y;
-  oneAdvertElement.querySelector('img').src = oneAdvertisment.author.avatar;
+  advertElement.style.left = oneAdvertisment.location.x;
+  advertElement.style.top = oneAdvertisment.location.y;
+  advertElement.querySelector('img').src = oneAdvertisment.author.avatar;
 
-  return oneAdvertElement;
+  return advertElement;
 };
 
 var fragment = document.createDocumentFragment();
@@ -79,13 +80,13 @@ for (var i = 0; i < pinElemList.length; i++) {
   }
 }
 
-var activateForm = function (element) {
+var deactivateForm = function (element) {
   for (var m = 0; m < element.length; m++) {
     element[m].setAttribute('disabled', 'disabled');
   }
 };
 
-var deactivateForm = function (element) {
+var activateForm = function (element) {
   for (var z = 0; z < element.length; z++) {
     element[z].removeAttribute('disabled', 'disabled');
   }
@@ -93,14 +94,15 @@ var deactivateForm = function (element) {
 
 var addForm = document.querySelector('.ad-form');
 var addFormInsides = addForm.querySelectorAll('fieldset > input, select');
-activateForm(addFormInsides);
+var addFormRequiredIndides = addForm.querySelectorAll('fieldset > input:not(.feature__checkbox), select');
+deactivateForm(addFormInsides);
 
 var mapFilters = document.querySelector('.map__filters');
 var mapFiltersInsides = mapFilters.querySelectorAll('fieldset > input, select');
-activateForm(mapFiltersInsides);
+deactivateForm(mapFiltersInsides);
 
-for (var p = 0; p < addFormInsides.length; p++) {
-  addFormInsides[p].setAttribute('required', 'required');
+for (var p = 0; p < addFormRequiredIndides.length; p++) {
+  addFormRequiredIndides[p].setAttribute('required', 'required');
 }
 
 var addressForm = document.querySelector('#address');
@@ -112,8 +114,8 @@ var mainPin = document.querySelector('.map__pin--main');
 var activatePage = function () {
   map.classList.remove('map--faded');
   addForm.classList.remove('ad-form--disabled');
-  deactivateForm(mapFiltersInsides);
-  deactivateForm(addFormInsides);
+  activateForm(mapFiltersInsides);
+  activateForm(addFormInsides);
   for (var k = 0; k < pinElemList.length; k++) {
     pinList.appendChild(pinElemList[k]);
   }
@@ -131,14 +133,19 @@ timeOut.onchange = function () {
 };
 
 var price = document.querySelector('#price');
-var priceMinValue = ['0', '1000', '5000', '10000'];
 var typePlace = document.querySelector('#type');
 var arrayPlace = typePlace.querySelectorAll('option');
 typePlace.onchange = function () {
   for (var b = 0; b < arrayPlace.length; b++) {
     if (typePlace.selectedIndex === b) {
-      price.setAttribute('min', priceMinValue[b]);
-      price.placeholder = priceMinValue[b];
+      price.setAttribute('min', PRICE_MIN_VALUE[b]);
+      price.placeholder = PRICE_MIN_VALUE[b];
     }
   }
 };
+
+var resetForm = addForm.querySelector('.ad-form__reset');
+resetForm.addEventListener('click', function() {
+  addForm.reset();
+  addressForm.setAttribute('value', mainPinPosition);
+});
