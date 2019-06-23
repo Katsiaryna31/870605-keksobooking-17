@@ -13,6 +13,10 @@ var PRICE_MIN_VALUE = ['0', '1000', '5000', '10000'];
 var mainPinCenterX = MAIN_PAGE_WIDTH / 2;
 var mainPinCenterY = MAIN_PIN_LOCATION_Y + MAIN_PIN_RADIUS / 2;
 var mainPinPosition = mainPinCenterX + ', ' + mainPinCenterY;
+var MAP_TOP_SIDE = 130;
+var MAP_BOTTOM_SIDE = 540;
+var MAP_LEFT_SIDE = 91;
+var MAP_RIGHT_SIDE = 1107;
 
 var getAvatar = function (pictureNumber) {
   return pictureNumber < NUMBER ? 'img/avatars/user0' + pictureNumber + '.png' : 'img/avatars/user' + pictureNumber + '.png';
@@ -134,6 +138,55 @@ var resetPage = function () {
 };
 
 mainPin.addEventListener('mouseup', activatePage);
+
+mainPin.addEventListener('mousedown', function (evt) {
+  evt.preventDefault();
+
+  activatePage();
+
+  var startCoords = {
+     x: evt.clientX,
+     y: evt.clientY
+   };
+
+  var dragged = false;
+
+
+   var onMouseMove = function (moveEvt) {
+     moveEvt.preventDefault();
+
+     var shift = {
+      x: startCoords.x - moveEvt.clientX,
+      y: startCoords.y - moveEvt.clientY
+     };
+
+     startCoords = {
+       x: moveEvt.clientX,
+       y: moveEvt.clientY
+     };
+
+     mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
+     mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
+   };
+
+   var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+
+    if (dragged) {
+        var onClickPreventDefault = function (evt) {
+          evt.preventDefault();
+          mainPin.removeEventListener('click', onClickPreventDefault)
+        };
+        mainPin.addEventListener('click', onClickPreventDefault);
+      }
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+ });
 
 var timeIn = document.querySelector('#timein');
 var timeOut = document.querySelector('#timeout');
