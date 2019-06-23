@@ -10,13 +10,15 @@ var MAIN_PAGE_WIDTH = 1200;
 var MAIN_PIN_LOCATION_Y = 375;
 var MAIN_PIN_RADIUS = 156;
 var PRICE_MIN_VALUE = ['0', '1000', '5000', '10000'];
+var MAIN_PIN_WIDTH = 64;
+var MAIN_PIN_HEIGHT = 80;
 var mainPinCenterX = MAIN_PAGE_WIDTH / 2;
-var mainPinCenterY = MAIN_PIN_LOCATION_Y + MAIN_PIN_RADIUS / 2;
-var mainPinPosition = mainPinCenterX + ', ' + mainPinCenterY;
+var mainPinCenterY = MAIN_PIN_LOCATION_Y + MAIN_PIN_HEIGHT;
+var mainPinPosition = mainPinCenterX + ',' + mainPinCenterY;
 var MAP_TOP_SIDE = 130;
-var MAP_BOTTOM_SIDE = 540;
-var MAP_LEFT_SIDE = 91;
-var MAP_RIGHT_SIDE = 1107;
+var MAP_BOTTOM_SIDE = 630;
+var MAP_LEFT_SIDE = 0;
+var mapRightSide = MAIN_PAGE_WIDTH - MAIN_PIN_WIDTH;
 
 var getAvatar = function (pictureNumber) {
   return pictureNumber < NUMBER ? 'img/avatars/user0' + pictureNumber + '.png' : 'img/avatars/user' + pictureNumber + '.png';
@@ -109,10 +111,6 @@ for (var p = 0; p < addFormRequiredIndides.length; p++) {
   addFormRequiredIndides[p].setAttribute('required', 'required');
 }
 
-var addressForm = document.querySelector('#address');
-addressForm.setAttribute('readonly', 'readonly');
-addressForm.value = mainPinPosition;
-
 var mainPin = document.querySelector('.map__pin--main');
 
 var activatePage = function () {
@@ -136,6 +134,10 @@ var resetPage = function () {
     }
   }
 };
+
+var addressForm = document.querySelector('#address');
+addressForm.setAttribute('readonly', 'readonly');
+addressForm.value = mainPinPosition;
 
 mainPin.addEventListener('mouseup', activatePage);
 
@@ -165,8 +167,26 @@ mainPin.addEventListener('mousedown', function (evt) {
        y: moveEvt.clientY
      };
 
-     mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
-     mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
+    var mainPinTop = mainPin.offsetTop - shift.y;
+    var mainPinLeft = mainPin.offsetLeft - shift.x;
+
+    if (mainPinTop < MAP_TOP_SIDE) {
+      mainPinTop = MAP_TOP_SIDE;
+    } else if (mainPinTop > MAP_BOTTOM_SIDE) {
+      mainPinTop = MAP_BOTTOM_SIDE;
+    }
+
+    if (mainPinLeft < MAP_LEFT_SIDE) {
+      mainPinLeft = MAP_LEFT_SIDE;
+    } else if (mainPinLeft > mapRightSide) {
+      mainPinLeft = mapRightSide;
+    }
+
+    mainPin.style.top = mainPinTop + 'px';
+    mainPin.style.left = mainPinLeft + 'px';
+
+    mainPinPosition = (mainPinLeft + MAIN_PIN_WIDTH / 2) + ', ' + (mainPinTop + MAIN_PIN_HEIGHT);
+    addressForm.value = mainPinPosition;
    };
 
    var onMouseUp = function (upEvt) {
@@ -186,6 +206,7 @@ mainPin.addEventListener('mousedown', function (evt) {
 
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
+
  });
 
 var timeIn = document.querySelector('#timein');
