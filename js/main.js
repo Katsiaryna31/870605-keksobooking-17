@@ -159,12 +159,12 @@ mainPin.addEventListener('mousedown', function (evt) {
     var shift = {
       x: startCoords.x - moveEvt.clientX,
       y: startCoords.y - moveEvt.clientY
-     };
+    };
 
-     startCoords = {
-       x: moveEvt.clientX,
-       y: moveEvt.clientY
-     };
+    startCoords = {
+      x: moveEvt.clientX,
+      y: moveEvt.clientY
+    };
 
     var mainPinTop = mainPin.offsetTop - shift.y;
     var mainPinLeft = mainPin.offsetLeft - shift.x;
@@ -186,22 +186,22 @@ mainPin.addEventListener('mousedown', function (evt) {
 
     mainPinPosition = (mainPinLeft + MAIN_PIN_WIDTH / 2) + ', ' + (mainPinTop + MAIN_PIN_HEIGHT);
     addressForm.value = mainPinPosition;
-   };
+  };
 
-   var onMouseUp = function (upEvt) {
-     upEvt.preventDefault();
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
 
-     document.removeEventListener('mousemove', onMouseMove);
-     document.removeEventListener('mouseup', onMouseUp);
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
 
-     if (dragged) {
-       var onClickPreventDefault = function (onClickEvt) {
-         onClickEvt.preventDefault();
-         mainPin.removeEventListener('click', onClickPreventDefault)
-       };
-       mainPin.addEventListener('click', onClickPreventDefault);
-     }
-   };
+    if (dragged) {
+      var onClickPreventDefault = function (onClickEvt) {
+        onClickEvt.preventDefault();
+        mainPin.removeEventListener('click', onClickPreventDefault);
+      };
+      mainPin.addEventListener('click', onClickPreventDefault);
+    }
+  };
 
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
