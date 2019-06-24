@@ -7,17 +7,20 @@ var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
 var pointerX = PIN_WIDTH / 2;
 var MAIN_PAGE_WIDTH = 1200;
+var MAIN_PIN_LOCATION_X = 570;
 var MAIN_PIN_LOCATION_Y = 375;
 var PRICE_MIN_VALUE = ['0', '1000', '5000', '10000'];
 var MAIN_PIN_WIDTH = 64;
 var MAIN_PIN_HEIGHT = 80;
-var mainPinCenterX = MAIN_PAGE_WIDTH / 2;
+var mainPinCenterX = MAIN_PIN_LOCATION_X + MAIN_PIN_WIDTH / 2;
 var mainPinCenterY = MAIN_PIN_LOCATION_Y + MAIN_PIN_HEIGHT;
-var mainPinPosition = mainPinCenterX + ',' + mainPinCenterY;
+var mainPinPositionFirst = mainPinCenterX + ',' + mainPinCenterY;
 var MAP_TOP_SIDE = 130;
 var MAP_BOTTOM_SIDE = 630;
-var MAP_LEFT_SIDE = 0;
-var mapRightSide = MAIN_PAGE_WIDTH - MAIN_PIN_WIDTH;
+var MAP_LEFT_LIMIT = 0;
+var mapRightLimit = MAIN_PAGE_WIDTH - MAIN_PIN_WIDTH;
+var mapTopLimit = MAP_TOP_SIDE - MAIN_PIN_HEIGHT;
+var mapBottomLimit = MAP_BOTTOM_SIDE - MAIN_PIN_HEIGHT;
 
 var getAvatar = function (pictureNumber) {
   return pictureNumber < NUMBER ? 'img/avatars/user0' + pictureNumber + '.png' : 'img/avatars/user' + pictureNumber + '.png';
@@ -115,6 +118,7 @@ var mainPin = document.querySelector('.map__pin--main');
 var activatePage = function () {
   map.classList.remove('map--faded');
   addForm.classList.remove('ad-form--disabled');
+
   activateForm(mapFiltersInsides);
   activateForm(addFormInsides);
   for (var k = 0; k < pinElemList.length; k++) {
@@ -127,6 +131,10 @@ var resetPage = function () {
   deactivateForm(addFormInsides);
   map.classList.add('map--faded');
   addForm.classList.add('ad-form--disabled');
+  mainPin.style.top = MAIN_PIN_LOCATION_Y + 'px';
+  mainPin.style.left = MAIN_PIN_LOCATION_X + 'px';
+  addressForm.value = mainPinPositionFirst;
+
   for (var n = 0; n < pinElemList.length; n++) {
     if (!pinElemList[n].classList.contains('map__pin--main')) {
       pinElemList[n].parentNode.removeChild(pinElemList[n]);
@@ -136,7 +144,7 @@ var resetPage = function () {
 
 var addressForm = document.querySelector('#address');
 addressForm.setAttribute('readonly', 'readonly');
-addressForm.value = mainPinPosition;
+addressForm.value = mainPinPositionFirst;
 
 mainPin.addEventListener('mouseup', activatePage);
 
@@ -169,22 +177,22 @@ mainPin.addEventListener('mousedown', function (evt) {
     var mainPinTop = mainPin.offsetTop - shift.y;
     var mainPinLeft = mainPin.offsetLeft - shift.x;
 
-    if (mainPinTop < MAP_TOP_SIDE) {
-      mainPinTop = MAP_TOP_SIDE;
-    } else if (mainPinTop > MAP_BOTTOM_SIDE) {
-      mainPinTop = MAP_BOTTOM_SIDE;
+    if (mainPinTop < mapTopLimit) {
+      mainPinTop = mapTopLimit;
+    } else if (mainPinTop > mapBottomLimit) {
+      mainPinTop = mapBottomLimit;
     }
 
-    if (mainPinLeft < MAP_LEFT_SIDE) {
-      mainPinLeft = MAP_LEFT_SIDE;
-    } else if (mainPinLeft > mapRightSide) {
-      mainPinLeft = mapRightSide;
+    if (mainPinLeft < MAP_LEFT_LIMIT) {
+      mainPinLeft = MAP_LEFT_LIMIT;
+    } else if (mainPinLeft > mapRightLimit) {
+      mainPinLeft = mapRightLimit;
     }
 
     mainPin.style.top = mainPinTop + 'px';
     mainPin.style.left = mainPinLeft + 'px';
 
-    mainPinPosition = (mainPinLeft + MAIN_PIN_WIDTH / 2) + ', ' + (mainPinTop + MAIN_PIN_HEIGHT);
+    var mainPinPosition = (mainPinLeft + MAIN_PIN_WIDTH / 2) + ', ' + (mainPinTop + MAIN_PIN_HEIGHT);
     addressForm.value = mainPinPosition;
   };
 
@@ -231,6 +239,6 @@ typePlace.onchange = function () {
 var resetForm = addForm.querySelector('.ad-form__reset');
 resetForm.addEventListener('click', function () {
   addForm.reset();
-  addressForm.setAttribute('value', mainPinPosition);
+  addressForm.setAttribute('value', mainPinPositionFirst);
   resetPage();
 });
