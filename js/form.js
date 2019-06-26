@@ -34,7 +34,7 @@
     activateForm(mapFiltersInsides);
     activateForm(addFormInsides);
     for (var k = 0; k < window.map.pinElemList.length; k++) {
-        window.map.pinList.appendChild(window.map.pinElemList[k]);
+      window.map.pinList.appendChild(window.map.pinElemList[k]);
     }
   };
 

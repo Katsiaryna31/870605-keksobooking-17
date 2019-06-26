@@ -98,26 +98,26 @@
       mainPin.style.left = mainPinLeft + 'px';
 
       var mainPinPosition = (mainPinLeft + MAIN_PIN_WIDTH / 2) + ', ' + (mainPinTop + MAIN_PIN_HEIGHT);
-        window.form.addressForm.value = mainPinPosition;
-      };
+      window.form.addressForm.value = mainPinPosition;
+    };
 
-      var onMouseUp = function (upEvt) {
-        upEvt.preventDefault();
+    var onMouseUp = function (upEvt) {
+      upEvt.preventDefault();
 
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUp);
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
 
-        if (dragged) {
-          var onClickPreventDefault = function (onClickEvt) {
-            onClickEvt.preventDefault();
-            mainPin.removeEventListener('click', onClickPreventDefault);
-          };
-          mainPin.addEventListener('click', onClickPreventDefault);
-        }
-      };
+      if (dragged) {
+        var onClickPreventDefault = function (onClickEvt) {
+          onClickEvt.preventDefault();
+          mainPin.removeEventListener('click', onClickPreventDefault);
+        };
+        mainPin.addEventListener('click', onClickPreventDefault);
+      }
+    };
 
-      document.addEventListener('mousemove', onMouseMove);
-      document.addEventListener('mouseup', onMouseUp);
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
   });
 
   window.map = {
