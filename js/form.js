@@ -9,8 +9,8 @@
   };
 
   var activateForm = function (element) {
-    for (var z = 0; z < element.length; z++) {
-      element[z].removeAttribute('disabled', 'disabled');
+    for (var l = 0; l < element.length; l++) {
+      element[l].removeAttribute('disabled', 'disabled');
     }
   };
 
@@ -23,33 +23,33 @@
   var mapFiltersInsides = mapFilters.querySelectorAll('fieldset > input, select');
   deactivateForm(mapFiltersInsides);
 
-  for (var p = 0; p < addFormRequiredIndides.length; p++) {
-    addFormRequiredIndides[p].setAttribute('required', 'required');
+  for (var t = 0; t < addFormRequiredIndides.length; t++) {
+    addFormRequiredIndides[t].setAttribute('required', 'required');
   }
 
   var activatePage = function () {
-    window.map.map.classList.remove('map--faded');
+    window.map.item.classList.remove('map--faded');
     addForm.classList.remove('ad-form--disabled');
 
     activateForm(mapFiltersInsides);
     activateForm(addFormInsides);
-    for (var k = 0; k < window.map.pinElemList.length; k++) {
-      window.map.pinList.appendChild(window.map.pinElemList[k]);
+    for (var a = 0; a < window.pins.ElemList.length; a++) {
+      window.map.pinList.appendChild(window.pins.ElemList[a]);
     }
   };
 
   var resetPage = function () {
     deactivateForm(mapFiltersInsides);
     deactivateForm(addFormInsides);
-    window.map.map.classList.add('map--faded');
+    window.map.item.classList.add('map--faded');
     addForm.classList.add('ad-form--disabled');
-    window.map.mainPin.style.top = window.map.mainPinLocationY + 'px';
-    window.map.mainPin.style.left = window.map.mainPinLocationX + 'px';
+    window.mainPin.mark.style.top = window.map.mainPinLocationY + 'px';
+    window.mainPin.mark.style.left = window.map.mainPinLocationX + 'px';
     addressForm.value = window.map.mainPinPositionFirst;
 
-    for (var n = 0; n < window.map.pinElemList.length; n++) {
-      if (!window.map.pinElemList[n].classList.contains('map__pin--main')) {
-        window.map.pinElemList[n].parentNode.removeChild(window.map.pinElemList[n]);
+    for (var b = 0; b < window.pins.ElemList.length; b++) {
+      if (!window.pins.ElemList[b].classList.contains('map__pin--main')) {
+        window.pins.ElemList[b].parentNode.removeChild(window.pins.ElemList[b]);
       }
     }
   };
@@ -71,10 +71,10 @@
   var typePlace = document.querySelector('#type');
   var arrayPlace = typePlace.querySelectorAll('option');
   typePlace.onchange = function () {
-    for (var b = 0; b < arrayPlace.length; b++) {
-      if (typePlace.selectedIndex === b) {
-        price.setAttribute('min', window.data.priceMinValue[b]);
-        price.placeholder = window.data.priceMinValue[b];
+    for (var c = 0; c < arrayPlace.length; c++) {
+      if (typePlace.selectedIndex === c) {
+        price.setAttribute('min', window.data.priceMinValue[c]);
+        price.placeholder = window.data.priceMinValue[c];
       }
     }
   };
@@ -87,7 +87,7 @@
   });
 
   window.form = {
-    addressForm: addressForm,
+    address: addressForm,
     activatePage: activatePage
   };
 
