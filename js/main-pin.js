@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 (function () {
   var mainPin = document.querySelector('.map__pin--main');
@@ -50,7 +50,7 @@
       mainPin.style.top = mainPinTop + 'px';
       mainPin.style.left = mainPinLeft + 'px';
 
-      var mainPinPosition = (mainPinLeft +   window.map.mainPinWidth / 2) + ', ' + (mainPinTop + window.map.mainPinHeight);
+      var mainPinPosition = (mainPinLeft + window.map.mainPinWidth / 2) + ', ' + (mainPinTop + window.map.mainPinHeight);
       window.form.address.value = mainPinPosition;
     };
 
