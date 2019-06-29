@@ -61,9 +61,9 @@
       if (dragged) {
         var onClickPreventDefault = function (onClickEvt) {
           onClickEvt.preventDefault();
-          mainPin.removeEventListener('click', onClickPreventDefault);
+          window.map.mainPin.removeEventListener('click', onClickPreventDefault);
         };
-        mainPin.addEventListener('click', onClickPreventDefault);
+        window.map.mainPin.addEventListener('click', onClickPreventDefault);
       }
     };
 
