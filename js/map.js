@@ -13,6 +13,7 @@
   var MAP_LEFT_LIMIT = 0;
 
   var pinList = document.querySelector('.map__pins');
+  var mainPin = document.querySelector('.map__pin--main');
   var mapSizes = pinList.getBoundingClientRect();
   var mapRightLimit = mapSizes.width - MAIN_PIN_WIDTH;
   var mapTopLimit = MAP_TOP_SIDE - MAIN_PIN_HEIGHT;
@@ -23,6 +24,7 @@
   window.map = {
     item: map,
     pinList: pinList,
+    mainPin: mainPin,
     mainPinLocationY: MAIN_PIN_LOCATION_Y,
     mainPinLocationX: MAIN_PIN_LOCATION_X,
     mainPinPositionFirst: mainPinPositionFirst,

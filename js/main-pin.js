@@ -1,13 +1,11 @@
 'use strict';
 
 (function () {
-  var mainPin = document.querySelector('.map__pin--main');
-
-  mainPin.addEventListener('mouseup', function () {
+  window.map.mainPin.addEventListener('mouseup', function () {
     window.form.activatePage();
   });
 
-  mainPin.addEventListener('mousedown', function (evt) {
+  window.map.mainPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
     window.form.activatePage();
@@ -32,8 +30,8 @@
         y: moveEvt.clientY
       };
 
-      var mainPinTop = mainPin.offsetTop - shift.y;
-      var mainPinLeft = mainPin.offsetLeft - shift.x;
+      var mainPinTop = window.map.mainPin.offsetTop - shift.y;
+      var mainPinLeft = window.map.mainPin.offsetLeft - shift.x;
 
       if (mainPinTop < window.map.topLimit) {
         mainPinTop = window.map.topLimit;
@@ -47,8 +45,8 @@
         mainPinLeft = window.map.rightLimit;
       }
 
-      mainPin.style.top = mainPinTop + 'px';
-      mainPin.style.left = mainPinLeft + 'px';
+      window.map.mainPin.style.top = mainPinTop + 'px';
+      window.map.mainPin.style.left = mainPinLeft + 'px';
 
       var mainPinPosition = (mainPinLeft + window.map.mainPinWidth / 2) + ', ' + (mainPinTop + window.map.mainPinHeight);
       window.form.address.value = mainPinPosition;
@@ -72,7 +70,5 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
-
-  window.mainPin = mainPin;
 
 })();

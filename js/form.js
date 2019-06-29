@@ -43,8 +43,8 @@
     deactivateForm(addFormInsides);
     window.map.item.classList.add('map--faded');
     addForm.classList.add('ad-form--disabled');
-    window.mainPin.style.top = window.map.mainPinLocationY + 'px';
-    window.mainPin.style.left = window.map.mainPinLocationX + 'px';
+    window.map.mainPin.style.top = window.map.mainPinLocationY + 'px';
+    window.map.mainPin.style.left = window.map.mainPinLocationX + 'px';
     addressForm.value = window.map.mainPinPositionFirst;
 
     for (var b = 0; b < window.pins.elemList.length; b++) {
