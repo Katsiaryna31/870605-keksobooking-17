@@ -33,8 +33,8 @@
 
     activateForm(mapFiltersInsides);
     activateForm(addFormInsides);
-    for (var a = 0; a < window.pins.ElemList.length; a++) {
-      window.map.pinList.appendChild(window.pins.ElemList[a]);
+    for (var a = 0; a < window.pins.elemList.length; a++) {
+      window.map.pinList.appendChild(window.pins.elemList[a]);
     }
   };
 
@@ -43,13 +43,13 @@
     deactivateForm(addFormInsides);
     window.map.item.classList.add('map--faded');
     addForm.classList.add('ad-form--disabled');
-    window.mainPin.mark.style.top = window.map.mainPinLocationY + 'px';
-    window.mainPin.mark.style.left = window.map.mainPinLocationX + 'px';
+    window.mainPin.style.top = window.map.mainPinLocationY + 'px';
+    window.mainPin.style.left = window.map.mainPinLocationX + 'px';
     addressForm.value = window.map.mainPinPositionFirst;
 
-    for (var b = 0; b < window.pins.ElemList.length; b++) {
-      if (!window.pins.ElemList[b].classList.contains('map__pin--main')) {
-        window.pins.ElemList[b].parentNode.removeChild(window.pins.ElemList[b]);
+    for (var b = 0; b < window.pins.elemList.length; b++) {
+      if (!window.pins.elemList[b].classList.contains('map__pin--main')) {
+        window.pins.elemList[b].parentNode.removeChild(window.pins.elemList[b]);
       }
     }
   };

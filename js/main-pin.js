@@ -73,8 +73,6 @@
     document.addEventListener('mouseup', onMouseUp);
   });
 
-  window.mainPin = {
-    mark: mainPin
-  };
+  window.mainPin = mainPin;
 
 })();

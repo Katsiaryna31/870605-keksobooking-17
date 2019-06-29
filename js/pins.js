@@ -16,6 +16,6 @@
   }
 
   window.pins = {
-    ElemList: pinElemList
+    elemList: pinElemList
   };
 })();
