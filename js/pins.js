@@ -22,5 +22,5 @@
   window.pins = {
     add: addPins,
     delete: deletePins
-  }
+  };
 })();
