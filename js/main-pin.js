@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  window.map.mainPin.addEventListener('mouseup', function (evt) {
+  window.map.mainPin.addEventListener('mouseup', function () {
     if (window.map.item.classList.contains('map--faded')) {
       window.map.item.classList.remove('map--faded');
       window.pins.add();
