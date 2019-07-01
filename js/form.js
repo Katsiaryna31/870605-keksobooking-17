@@ -28,7 +28,6 @@
   }
 
   var activatePage = function () {
-    window.map.item.classList.remove('map--faded');
     addForm.classList.remove('ad-form--disabled');
 
     activateForm(mapFiltersInsides);

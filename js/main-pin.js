@@ -1,14 +1,21 @@
 'use strict';
 
 (function () {
-  window.map.mainPin.addEventListener('mouseup', function () {
-    window.form.activatePage();
+  window.map.mainPin.addEventListener('mouseup', function (evt) {
+    if (window.map.item.classList.contains('map--faded')) {
+      window.map.item.classList.remove('map--faded');
+      window.pins.add();
+      window.form.activatePage();
+    }
   });
 
   window.map.mainPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
-
-    window.form.activatePage();
+    if (window.map.item.classList.contains('map--faded')) {
+      window.map.item.classList.remove('map--faded');
+      window.pins.add();
+      window.form.activatePage();
+    }
 
     var startCoords = {
       x: evt.clientX,
