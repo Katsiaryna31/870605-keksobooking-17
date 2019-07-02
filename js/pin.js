@@ -7,7 +7,7 @@
 
   var renderAdvert = function (oneAdvertisment) {
     var advertElement = pin.cloneNode(true);
-
+    console.log(oneAdvertisment);
     advertElement.style.left = oneAdvertisment.location.x;
     advertElement.style.top = oneAdvertisment.location.y;
     advertElement.querySelector('img').src = oneAdvertisment.author.avatar;

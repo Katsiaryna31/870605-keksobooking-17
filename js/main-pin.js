@@ -4,7 +4,7 @@
   window.map.mainPin.addEventListener('mouseup', function () {
     if (window.map.item.classList.contains('map--faded')) {
       window.map.item.classList.remove('map--faded');
-      window.pins.add();
+      window.pins.render();
       window.form.activatePage();
     }
   });
@@ -13,7 +13,6 @@
     evt.preventDefault();
     if (window.map.item.classList.contains('map--faded')) {
       window.map.item.classList.remove('map--faded');
-      window.pins.add();
       window.form.activatePage();
     }
 
@@ -56,7 +55,7 @@
       window.map.mainPin.style.left = mainPinLeft + 'px';
 
       var mainPinPosition = (mainPinLeft + window.map.mainPinWidth / 2) + ', ' + (mainPinTop + window.map.mainPinHeight);
-      window.form.address.value = mainPinPosition;
+      window.form.domAddressElement.value = mainPinPosition;
     };
 
     var onMouseUp = function (upEvt) {
