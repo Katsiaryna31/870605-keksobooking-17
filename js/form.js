@@ -33,7 +33,8 @@
     activateForm(mapFiltersInsides);
     activateForm(addFormInsides);
     window.pins.remove();
-    window.backend.load(window.pins.render,  window.pins.error);
+    window.backend.load(window.pins.render,  window.message.error);
+    window.backend.load(window.cards.render,  window.message.error);
   };
 
   var resetPage = function () {

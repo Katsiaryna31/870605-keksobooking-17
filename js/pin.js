@@ -7,16 +7,22 @@
 
   var renderAdvert = function (oneAdvertisment) {
     var advertElement = pin.cloneNode(true);
-    console.log(oneAdvertisment);
-    advertElement.style.left = oneAdvertisment.location.x;
-    advertElement.style.top = oneAdvertisment.location.y;
+
+    advertElement.style.left = oneAdvertisment.location.x + 'px';
+    advertElement.style.top = oneAdvertisment.location.y + 'px';
     advertElement.querySelector('img').src = oneAdvertisment.author.avatar;
 
     return advertElement;
   };
 
+  var activatePin = function () {
+    pin.classList.add('.map__pin--active');
+  }
+
+
   window.pin = {
     renderAdvert: renderAdvert,
+    activate: activatePin
   };
 
 })();
