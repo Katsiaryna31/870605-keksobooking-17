@@ -15,8 +15,8 @@
     return advertElement;
   };
 
-  var activatePin = function () {
-    pin.classList.add('.map__pin--active');
+  var activatePin = function (activePin) {
+    activePin.classList.add('.map__pin--active');
   }
 
 

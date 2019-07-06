@@ -32,9 +32,8 @@
 
     activateForm(mapFiltersInsides);
     activateForm(addFormInsides);
-    window.pins.remove();
-    window.backend.load(window.pins.render,  window.message.error);
-    window.backend.load(window.cards.render,  window.message.error);
+    window.map.removePins();
+    window.backend.load(window.map.renderPins,  window.message.error);
   };
 
   var resetPage = function () {
@@ -45,7 +44,7 @@
     window.map.mainPin.style.top = window.map.mainPinLocationY + 'px';
     window.map.mainPin.style.left = window.map.mainPinLocationX + 'px';
     addressForm.value = window.map.mainPinPositionFirst;
-    window.pins.remove();
+    window.map.removePins();
   };
 
   var addressForm = document.querySelector('#address');

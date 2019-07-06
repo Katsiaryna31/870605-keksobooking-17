@@ -19,24 +19,26 @@
 
 
     cardElement.querySelector('.popup__description').value = oneCard.offer.description;
-
+    cardElement.querySelector('.popup__close').addEventListener('click', function (evt) {
+      closeCard();
+    });
     return cardElement;
   };
 
-  var closeCard = function () {
-    card.classList.add('hidden');
-  }
+  var showCard = function (oneCard) {
+    fragment.appendChild(renderCard(oneCard));
+  };
 
-  var cardClose =  card.querySelector('.popup__close');
-  cardClose.addEventListener('click', function (evt) {
-    closeCard();
-  });
+  var closeCard = function () {
+    fragment.removeChild(renderCard(oneCard));
+  };
 
 
   window.card = {
     element: card,
     closeElement: closeCard,
     render: renderCard,
+    showElement: showCard
   };
 
 })();
