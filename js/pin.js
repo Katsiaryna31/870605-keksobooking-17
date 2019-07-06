@@ -17,7 +17,7 @@
 
   var activatePin = function (activePin) {
     activePin.classList.add('.map__pin--active');
-  }
+  };
 
 
   window.pin = {

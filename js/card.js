@@ -19,17 +19,19 @@
 
 
     cardElement.querySelector('.popup__description').value = oneCard.offer.description;
-    cardElement.querySelector('.popup__close').addEventListener('click', function (evt) {
+    cardElement.querySelector('.popup__close').addEventListener('click', function () {
       closeCard();
     });
     return cardElement;
   };
 
+  var fragment = document.createDocumentFragment();
+
   var showCard = function (oneCard) {
     fragment.appendChild(renderCard(oneCard));
   };
 
-  var closeCard = function () {
+  var closeCard = function (oneCard) {
     fragment.removeChild(renderCard(oneCard));
   };
 

@@ -2,7 +2,6 @@
 
 (function () {
 
-  var KIND_PLACE = ['palace', 'flat', 'house', 'bungalo'];
   var PRICE_MIN_VALUE = ['0', '1000', '5000', '10000'];
   var PIN_WIDTH = 50;
   var PIN_HEIGHT = 70;

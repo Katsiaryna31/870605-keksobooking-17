@@ -24,7 +24,7 @@
     var fragment = document.createDocumentFragment();
     for (var d = 0; d < advertisments.length; d++) {
       var advertPin = window.pin.renderAdvert(advertisments[d]);
-      advertPin.addEventListener('click', function (d) {
+      advertPin.addEventListener('click', function () {
         window.pin.activate(advertPin);
         window.card.showElement(advertisments[d]);
       });
