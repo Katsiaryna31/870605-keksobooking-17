@@ -1,16 +1,19 @@
 'use strict';
 
 (function () {
-  var addPins = function () {
+  var pinList = document.querySelector('.map__pins');
+  var pinsArray = [];
+  var renderPins = function (advertisments) {
     var fragment = document.createDocumentFragment();
-    var advertisments = window.data.getAdvertising();
-    for (var j = 0; j < advertisments.length; j++) {
-      fragment.appendChild(window.pin.renderAdvert(advertisments[j]));
+
+    for (var d = 0; d < advertisments.length; d++) {
+      fragment.appendChild(window.pin.renderAdvert(advertisments[d]));
+      pinsArray.push(window.pin.renderAdvert(advertisments[d]));
     }
-    window.map.pinList.appendChild(fragment);
+    pinList.appendChild(fragment);
   };
 
-  var deletePins = function () {
+  var removePins = function () {
     var pinElemList = document.querySelectorAll('.map__pin');
     for (var k = 0; k < pinElemList.length; k++) {
       if (!pinElemList[k].classList.contains('map__pin--main')) {
@@ -19,8 +22,11 @@
     }
   };
 
+
   window.pins = {
-    add: addPins,
-    delete: deletePins
+    pinList: pinList,
+    array: pinsArray,
+    render: renderPins,
+    remove: removePins,
   };
 })();

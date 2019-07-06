@@ -18,12 +18,32 @@
   var mapRightLimit = mapSizes.width - MAIN_PIN_WIDTH;
   var mapTopLimit = MAP_TOP_SIDE - MAIN_PIN_HEIGHT;
   var mapBottomLimit = MAP_BOTTOM_SIDE - MAIN_PIN_HEIGHT;
-
   var map = document.querySelector('.map');
+
+  var renderPins = function (advertisments) {
+    var fragment = document.createDocumentFragment();
+    for (var d = 0; d < advertisments.length; d++) {
+      var advertPin = window.pin.renderAdvert(advertisments[d]);
+      advertPin.addEventListener('click', function () {
+        window.pin.activate(advertPin);
+        window.card.showElement(advertisments[d]);
+      });
+      fragment.appendChild(advertPin);
+    }
+    pinList.appendChild(fragment);
+  };
+
+  var removePins = function () {
+    var pinElemList = document.querySelectorAll('.map__pin');
+    for (var k = 0; k < pinElemList.length; k++) {
+      if (!pinElemList[k].classList.contains('map__pin--main')) {
+        pinElemList[k].parentNode.removeChild(pinElemList[k]);
+      }
+    }
+  };
 
   window.map = {
     item: map,
-    pinList: pinList,
     mainPin: mainPin,
     mainPinLocationY: MAIN_PIN_LOCATION_Y,
     mainPinLocationX: MAIN_PIN_LOCATION_X,
@@ -33,7 +53,10 @@
     bottomLimit: mapBottomLimit,
     leftLimit: MAP_LEFT_LIMIT,
     mainPinWidth: MAIN_PIN_WIDTH,
-    mainPinHeight: MAIN_PIN_HEIGHT
+    mainPinHeight: MAIN_PIN_HEIGHT,
+    pinList: pinList,
+    renderPins: renderPins,
+    removePins: removePins,
   };
 
 })();
