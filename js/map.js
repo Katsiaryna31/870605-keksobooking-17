@@ -12,25 +12,30 @@
   var MAP_BOTTOM_SIDE = 630;
   var MAP_LEFT_LIMIT = 0;
 
-  var pinList = document.querySelector('.map__pins');
+
   var mainPin = document.querySelector('.map__pin--main');
-  var mapSizes = pinList.getBoundingClientRect();
+  var mapSizes = window.card.pinList.getBoundingClientRect();
   var mapRightLimit = mapSizes.width - MAIN_PIN_WIDTH;
   var mapTopLimit = MAP_TOP_SIDE - MAIN_PIN_HEIGHT;
   var mapBottomLimit = MAP_BOTTOM_SIDE - MAIN_PIN_HEIGHT;
   var map = document.querySelector('.map');
 
+
+  var pins = [];
+
+  var successLoad = function (data) {
+    pins = data;
+    renderPins(data);
+  }
+
   var renderPins = function (advertisments) {
+    var pinsShow = pins.slice(0, 5);
     var fragment = document.createDocumentFragment();
-    for (var d = 0; d < advertisments.length; d++) {
-      var advertPin = window.pin.renderAdvert(advertisments[d]);
-      advertPin.addEventListener('click', function () {
-        window.pin.activate(advertPin);
-        window.card.showElement(advertisments[d]);
-      });
+    for (var d = 0; d < pinsShow.length; d++) {
+      var advertPin = window.pin.take(advertisments, d);
       fragment.appendChild(advertPin);
     }
-    pinList.appendChild(fragment);
+    window.card.pinList.appendChild(fragment);
   };
 
   var removePins = function () {
@@ -54,9 +59,10 @@
     leftLimit: MAP_LEFT_LIMIT,
     mainPinWidth: MAIN_PIN_WIDTH,
     mainPinHeight: MAIN_PIN_HEIGHT,
-    pinList: pinList,
     renderPins: renderPins,
     removePins: removePins,
+    pins: pins,
+    successLoad: successLoad
   };
 
 })();

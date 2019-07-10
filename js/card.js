@@ -9,30 +9,41 @@
     var cardElement = card.cloneNode(true);
 
     cardElement.querySelector('.popup__avatar').src = oneCard.author.avatar;
-    cardElement.querySelector('.popup__title').value = oneCard.offer.title;
-    cardElement.querySelector('.popup__text--address').value = oneCard.offer.title;
+    cardElement.querySelector('.popup__title').textContent = oneCard.offer.title;
+    cardElement.querySelector('.popup__text--address').textContent = oneCard.offer.address;
 
-    cardElement.querySelector('.popup__text--price').value = oneCard.offer.price;
-    cardElement.querySelector('.popup__type').value = oneCard.offer.type;
-    cardElement.querySelector('.popup__text--capacity').value = oneCard.offer.rooms + ' комнаты для ' + oneCard.offer.guests + ' гостей';
-    cardElement.querySelector('.popup__text--time').value = 'Заезд после ' + oneCard.offer.checkin + ', выезд до ' + oneCard.offer.checkout;
+    cardElement.querySelector('.popup__text--price').textContent = oneCard.offer.price;
 
+    var offerTypetoPopupType = {
+      'bungalo': 'Бунгало',
+      'flat': 'Квартира',
+      'house': 'Дом',
+      'palace': 'Дворец',
+    };
+    cardElement.querySelector('.popup__type').textContent = offerTypetoPopupType[oneCard.offer.type];
+    cardElement.querySelector('.popup__text--capacity').textContent = oneCard.offer.rooms + ' комнаты для ' + oneCard.offer.guests + ' гостей';
+    cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + oneCard.offer.checkin + ', выезд до ' + oneCard.offer.checkout;
 
-    cardElement.querySelector('.popup__description').value = oneCard.offer.description;
+    cardElement.querySelector('.popup__description').textContent = oneCard.offer.description;
     cardElement.querySelector('.popup__close').addEventListener('click', function () {
-      closeCard();
+      cardElement.parentNode.removeChild(cardElement);
     });
+
     return cardElement;
   };
 
-  var fragment = document.createDocumentFragment();
+  var pinList = document.querySelector('.map__pins');
 
-  var showCard = function (oneCard) {
-    fragment.appendChild(renderCard(oneCard));
+
+  var showCard = function (cardElement) {
+    pinList.appendChild(renderCard(cardElement));
   };
 
-  var closeCard = function (oneCard) {
-    fragment.removeChild(renderCard(oneCard));
+  var closeCard = function () {
+    var cardElemList = document.querySelectorAll('.map__card');
+    for (var j = 0; j < cardElemList.length; j++) {
+        cardElemList[j].parentNode.removeChild(cardElemList[j]);
+    }
   };
 
 
@@ -40,6 +51,7 @@
     element: card,
     closeElement: closeCard,
     render: renderCard,
+    pinList: pinList,
     showElement: showCard
   };
 

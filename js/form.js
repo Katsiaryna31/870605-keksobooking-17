@@ -33,7 +33,7 @@
     activateForm(mapFiltersInsides);
     activateForm(addFormInsides);
     window.map.removePins();
-    window.backend.load(window.map.renderPins, window.message.error);
+    window.backend.load(window.map.successLoad, window.message.error);
   };
 
   var resetPage = function () {
@@ -45,6 +45,7 @@
     window.map.mainPin.style.left = window.map.mainPinLocationX + 'px';
     addressForm.value = window.map.mainPinPositionFirst;
     window.map.removePins();
+    window.card.closeElement ();
   };
 
   var addressForm = document.querySelector('#address');
