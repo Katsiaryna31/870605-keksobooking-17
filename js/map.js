@@ -32,11 +32,11 @@
 
     var pinsShow = pins;
     if (type && type !== 'any') {
-      pinsShow = pinsShow.filter(function(it) {
-        return it.offer.type === type
-      })
+      pinsShow = pinsShow.filter(function (it) {
+        return it.offer.type === type;
+      });
     }
-    pinsShow = pinsShow.slice(0,5);
+    pinsShow = pinsShow.slice(0, 5);
 
     removePins();
     var fragment = document.createDocumentFragment();
