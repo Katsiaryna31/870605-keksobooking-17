@@ -45,7 +45,7 @@
     window.map.mainPin.style.left = window.map.mainPinLocationX + 'px';
     addressForm.value = window.map.mainPinPositionFirst;
     window.map.removePins();
-    window.card.closeElement ();
+    window.card.closeElement();
   };
 
   var addressForm = document.querySelector('#address');

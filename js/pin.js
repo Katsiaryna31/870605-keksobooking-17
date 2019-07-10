@@ -30,11 +30,11 @@
     var pinElement = window.pin.renderAdvert(advertisments[advertismentsIndex]);
     pinElement.addEventListener('click', function () {
       window.pin.activate(pinElement);
-      window.card.closeElement ();
+      window.card.closeElement();
       window.card.showElement(advertisments[advertismentsIndex]);
     });
     return pinElement;
-  }
+  };
 
 
   window.pin = {

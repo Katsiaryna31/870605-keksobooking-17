@@ -42,7 +42,7 @@
   var closeCard = function () {
     var cardElemList = document.querySelectorAll('.map__card');
     for (var j = 0; j < cardElemList.length; j++) {
-        cardElemList[j].parentNode.removeChild(cardElemList[j]);
+      cardElemList[j].parentNode.removeChild(cardElemList[j]);
     }
   };
 

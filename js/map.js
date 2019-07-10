@@ -25,14 +25,23 @@
 
   var successLoad = function (data) {
     pins = data;
-    renderPins(data);
-  }
+    renderPins();
+  };
 
-  var renderPins = function (advertisments) {
-    var pinsShow = pins.slice(0, 5);
+  var renderPins = function (type) {
+
+    var pinsShow = pins;
+    if (type && type !== 'any') {
+      pinsShow = pinsShow.filter(function(it) {
+        return it.offer.type === type
+      })
+    }
+    pinsShow = pinsShow.slice(0,5);
+
+    removePins();
     var fragment = document.createDocumentFragment();
     for (var d = 0; d < pinsShow.length; d++) {
-      var advertPin = window.pin.take(advertisments, d);
+      var advertPin = window.pin.take(pinsShow, d);
       fragment.appendChild(advertPin);
     }
     window.card.pinList.appendChild(fragment);
