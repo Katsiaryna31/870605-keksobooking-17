@@ -23,8 +23,20 @@
     cardElement.querySelector('.popup__type').textContent = offerTypetoPopupType[oneCard.offer.type];
     cardElement.querySelector('.popup__text--capacity').textContent = oneCard.offer.rooms + ' комнаты для ' + oneCard.offer.guests + ' гостей';
     cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + oneCard.offer.checkin + ', выезд до ' + oneCard.offer.checkout;
-
     cardElement.querySelector('.popup__description').textContent = oneCard.offer.description;
+
+    var photoList = oneCard.offer.photos;
+    if (photoList.length === 0) {
+      cardElement.removeChild(cardElement.querySelector('.popup__photos'));
+    } else {
+      cardElement.querySelector('.popup__photo').src = photoList[0];
+      for (var q = 1; q < photoList.length; q++) {
+        var placePhoto = cardElement.querySelector('.popup__photo').cloneNode(true);
+        placePhoto.src = photoList[q];
+        cardElement.querySelector('.popup__photos').appendChild(placePhoto);
+      }
+    }
+
     cardElement.querySelector('.popup__close').addEventListener('click', function () {
       cardElement.parentNode.removeChild(cardElement);
     });
