@@ -32,6 +32,7 @@
 
     var pinsShow = pins;
     if (type && type !== 'any') {
+      window.card.closeElement();
       pinsShow = pinsShow.filter(function (it) {
         return it.offer.type === type;
       });
