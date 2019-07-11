@@ -29,15 +29,13 @@
     if (photoList.length === 0) {
       cardElement.removeChild(cardElement.querySelector('.popup__photos'));
     } else {
-      cardElement.querySelector('.popup__photo').src = photoList[0];;
+      cardElement.querySelector('.popup__photo').src = photoList[0];
       for (var q = 1; q < photoList.length; q++) {
         var placePhoto = cardElement.querySelector('.popup__photo').cloneNode(true);
         placePhoto.src = photoList[q];
         cardElement.querySelector('.popup__photos').appendChild(placePhoto);
-      };
-    };
-
-
+      }
+    }
 
     cardElement.querySelector('.popup__close').addEventListener('click', function () {
       cardElement.parentNode.removeChild(cardElement);
