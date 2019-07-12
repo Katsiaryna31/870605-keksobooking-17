@@ -46,9 +46,15 @@
 
   var pinList = document.querySelector('.map__pins');
 
+  var onPopupEscPress = function (evt) {
+    if (evt.keyCode === window.util.ESC_KEYCODE) {
+        closeCard();
+    }
+  };
 
   var showCard = function (cardElement) {
     pinList.appendChild(renderCard(cardElement));
+    document.addEventListener('keydown', onPopupEscPress);
   };
 
   var closeCard = function () {
@@ -56,8 +62,8 @@
     for (var j = 0; j < cardElemList.length; j++) {
       cardElemList[j].parentNode.removeChild(cardElemList[j]);
     }
+    document.removeEventListener('keydown', onPopupEscPress);
   };
-
 
   window.card = {
     element: card,

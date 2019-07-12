@@ -36,11 +36,9 @@
     return pinElement;
   };
 
-
   window.pin = {
     renderAdvert: renderAdvert,
     activate: activatePin,
     take: takePin
   };
-
 })();
