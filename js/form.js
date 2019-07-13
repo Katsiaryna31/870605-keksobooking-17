@@ -63,12 +63,28 @@
 
   var price = document.querySelector('#price');
   var typePlace = document.querySelector('#type');
-  var arrayPlace = typePlace.querySelectorAll('option');
+  var arrayPlaces = typePlace.querySelectorAll('option');
   typePlace.onchange = function () {
-    for (var c = 0; c < arrayPlace.length; c++) {
+    for (var c = 0; c < arrayPlaces.length; c++) {
       if (typePlace.selectedIndex === c) {
         price.setAttribute('min', window.data.priceMinValue[c]);
         price.placeholder = window.data.priceMinValue[c];
+      }
+    }
+  };
+
+  var roomNumber = document.querySelector('#room_number');
+  var guestsNumber = document.querySelector('#capacity');
+  var arrayRooms = roomNumber.querySelectorAll('option');
+  var arrayGuests = guestsNumber.querySelectorAll('option');
+  console.log(arrayRooms);
+  console.log(arrayGuests);
+  roomNumber.onchange = function () {
+    for (var r = 0; r < arrayRooms.length; r++) {
+      if (roomNumber.selectedIndex === r) {
+        for (var s = (r + 1); s < arrayGuests; s++ ) {
+          guestsNumber.removeChild(arrayGuests[s]);
+        }
       }
     }
   };
