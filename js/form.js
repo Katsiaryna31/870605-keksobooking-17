@@ -12,6 +12,7 @@
     for (var l = 0; l < element.length; l++) {
       element[l].removeAttribute('disabled', 'disabled');
     }
+    guestsNumber[2].setAttribute('selected', 'selected');
   };
 
   var addForm = document.querySelector('.ad-form');
@@ -34,6 +35,7 @@
     activateForm(addFormInsides);
     window.map.removePins();
     window.backend.load(window.map.successLoad, window.message.error);
+
   };
 
   var resetPage = function () {
@@ -63,13 +65,35 @@
 
   var price = document.querySelector('#price');
   var typePlace = document.querySelector('#type');
-  var arrayPlace = typePlace.querySelectorAll('option');
+  var arrayPlaces = typePlace.querySelectorAll('option');
   typePlace.onchange = function () {
-    for (var c = 0; c < arrayPlace.length; c++) {
+    for (var c = 0; c < arrayPlaces.length; c++) {
       if (typePlace.selectedIndex === c) {
         price.setAttribute('min', window.data.priceMinValue[c]);
         price.placeholder = window.data.priceMinValue[c];
       }
+    }
+  };
+
+  var roomNumber = document.querySelector('#room_number');
+  var guestsNumber = document.querySelector('#capacity');
+  var arrayGuests = guestsNumber.querySelectorAll('option');
+
+  roomNumber.onchange = function () {
+    for (var s = 0; s < arrayGuests.length; s++) {
+      arrayGuests[s].setAttribute('disabled', 'disabled');
+    }
+    if (roomNumber.selectedIndex === 0) {
+      arrayGuests[2].removeAttribute('disabled', 'disabled');
+    } else if (roomNumber.selectedIndex === 1) {
+      arrayGuests[1].removeAttribute('disabled', 'disabled');
+      arrayGuests[2].removeAttribute('disabled', 'disabled');
+    } else if (roomNumber.selectedIndex === 2) {
+      arrayGuests[0].removeAttribute('disabled', 'disabled');
+      arrayGuests[1].removeAttribute('disabled', 'disabled');
+      arrayGuests[2].removeAttribute('disabled', 'disabled');
+    } else if (roomNumber.selectedIndex === 3) {
+      arrayGuests[3].removeAttribute('disabled', 'disabled');
     }
   };
 
