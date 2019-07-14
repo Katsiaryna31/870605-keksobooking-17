@@ -25,6 +25,15 @@
     cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + oneCard.offer.checkin + ', выезд до ' + oneCard.offer.checkout;
     cardElement.querySelector('.popup__description').textContent = oneCard.offer.description;
 
+    var icons = cardElement.querySelectorAll('.popup__feature');
+    for (var q = 0; q < icons.length; q++) {
+     var feature = icons[q].classList[1].split('--')[1];
+     if (oneCard.offer.features.indexOf(feature) === -1) {
+       cardElement.querySelector('.popup__features').removeChild(icons[q]);
+     }
+     console.log(feature);
+   }
+
     var photoList = oneCard.offer.photos;
     if (photoList.length === 0) {
       cardElement.removeChild(cardElement.querySelector('.popup__photos'));

@@ -12,6 +12,7 @@
     for (var l = 0; l < element.length; l++) {
       element[l].removeAttribute('disabled', 'disabled');
     }
+    guestsNumber[2].setAttribute('selected', 'selected');
   };
 
   var addForm = document.querySelector('.ad-form');
@@ -34,6 +35,7 @@
     activateForm(addFormInsides);
     window.map.removePins();
     window.backend.load(window.map.successLoad, window.message.error);
+
   };
 
   var resetPage = function () {
@@ -75,17 +77,23 @@
 
   var roomNumber = document.querySelector('#room_number');
   var guestsNumber = document.querySelector('#capacity');
-  var arrayRooms = roomNumber.querySelectorAll('option');
   var arrayGuests = guestsNumber.querySelectorAll('option');
-  console.log(arrayRooms);
-  console.log(arrayGuests);
+
   roomNumber.onchange = function () {
-    for (var r = 0; r < arrayRooms.length; r++) {
-      if (roomNumber.selectedIndex === r) {
-        for (var s = (r + 1); s < arrayGuests; s++ ) {
-          guestsNumber.removeChild(arrayGuests[s]);
-        }
-      }
+    for (var s = 0; s < arrayGuests.length; s++ ) {
+      arrayGuests[s].setAttribute('disabled', 'disabled');
+    }
+    if (roomNumber.selectedIndex === 0) {
+      arrayGuests[2].removeAttribute('disabled', 'disabled');
+    } else if (roomNumber.selectedIndex === 1) {
+      arrayGuests[1].removeAttribute('disabled', 'disabled');
+      arrayGuests[2].removeAttribute('disabled', 'disabled');
+    } else if (roomNumber.selectedIndex === 2) {
+      arrayGuests[0].removeAttribute('disabled', 'disabled');
+      arrayGuests[1].removeAttribute('disabled', 'disabled');
+      arrayGuests[2].removeAttribute('disabled', 'disabled');
+    } else if (roomNumber.selectedIndex === 3) {
+      arrayGuests[3].removeAttribute('disabled', 'disabled');
     }
   };
 
