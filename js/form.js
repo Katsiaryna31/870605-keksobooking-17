@@ -80,7 +80,7 @@
   var arrayGuests = guestsNumber.querySelectorAll('option');
 
   roomNumber.onchange = function () {
-    for (var s = 0; s < arrayGuests.length; s++ ) {
+    for (var s = 0; s < arrayGuests.length; s++) {
       arrayGuests[s].setAttribute('disabled', 'disabled');
     }
     if (roomNumber.selectedIndex === 0) {
