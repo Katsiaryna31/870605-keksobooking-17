@@ -100,7 +100,7 @@
 
   var resetForm = addForm.querySelector('.ad-form__reset');
 
-  var cleanForm = function() {
+  var cleanForm = function () {
     addForm.reset();
     addressForm.setAttribute('value', window.map.mainPinPositionFirst);
     resetPage();
@@ -116,7 +116,7 @@
     window.message.successMessage.parentNode.removeChild(window.message.successMessage);
     document.removeEventListener('click', reloadPage);
     document.removeEventListener('keydown', onPopupEscPress);
-  }
+  };
 
   var buttonSubmit = addForm.querySelector('.ad-form__submit');
 
@@ -134,16 +134,16 @@
   };
 
   var errorSave = function () {
-    window.message.error ();
+    window.message.error();
     document.addEventListener('click', reloadPage);
     document.addEventListener('keydown', onPopupEscPress);
   };
 
-  var sendData = function(evt) {
+  var sendData = function (evt) {
     evt.preventDefault();
     buttonSubmit.setAttribute('disabled', 'disabled');
     window.backend.save(new FormData(addForm), successSave, errorSave);
-  }
+  };
 
   addForm.addEventListener('submit', sendData);
 
