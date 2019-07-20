@@ -116,7 +116,7 @@
       window.message.errorMessage.parentNode.removeChild(window.message.errorMessage);
     } else if (window.card.pinList.classList.contains('success')) {
       window.message.successMessage.parentNode.removeChild(window.message.successMessage);
-    };
+    }
     document.removeEventListener('click', reloadPage);
     document.removeEventListener('keydown', onPopupEscPress);
   };
