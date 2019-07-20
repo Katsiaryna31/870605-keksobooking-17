@@ -54,16 +54,16 @@
 
   var pinList = document.querySelector('.map__pins');
 
-  var onPopupEscPress = function (evt) {
-    if (evt.keyCode === window.util.ESC_KEYCODE) {
-      closeCard();
-    }
-  };
-
   var showCard = function (cardElement) {
     pinList.appendChild(renderCard(cardElement));
     document.addEventListener('keydown', onPopupEscPress);
   };
+
+  var onPopupEscPress = function (evt) {
+    if (evt.keyCode === window.util.escKeycode) {
+      closeCard();
+    }
+  }
 
   var closeCard = function () {
     var cardElemList = document.querySelectorAll('.map__card');
