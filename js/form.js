@@ -112,8 +112,11 @@
   var reloadPage = function () {
     window.location.reload();
     buttonSubmit.removeAttribute('disabled', 'disabled');
-    window.message.errorMessage.parentNode.removeChild(window.message.errorMessage);
-    window.message.successMessage.parentNode.removeChild(window.message.successMessage);
+    if (window.card.pinList.classList.contains('error')) {
+      window.message.errorMessage.parentNode.removeChild(window.message.errorMessage);
+    } else if (window.card.pinList.classList.contains('success')) {
+      window.message.successMessage.parentNode.removeChild(window.message.successMessage);
+    };
     document.removeEventListener('click', reloadPage);
     document.removeEventListener('keydown', onPopupEscPress);
   };
