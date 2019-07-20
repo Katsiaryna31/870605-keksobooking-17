@@ -24,8 +24,8 @@
   var mapFiltersInsides = mapFilters.querySelectorAll('fieldset > input, select');
   deactivateForm(mapFiltersInsides);
 
-  for (var t = 0; t < addFormRequiredIndides.length; t++) {
-    addFormRequiredIndides[t].setAttribute('required', 'required');
+  for (var x = 0; x < addFormRequiredIndides.length; x++) {
+    addFormRequiredIndides[x].setAttribute('required', 'required');
   }
 
   var activatePage = function () {
@@ -101,12 +101,12 @@
 
   guestsNumber.onchange = function () {
     roomNumber.onchange();
-  }
+  };
 
   roomNumber.onchange = function () {
-    for (var s = 0; s < arrayGuests.length; s++) {
-      arrayGuests[s].setAttribute('disabled', 'disabled');
-    };
+    for (var w = 0; w < arrayGuests.length; w++) {
+      arrayGuests[w].setAttribute('disabled', 'disabled');
+    }
     for (var s = 0; s < arrayGuests.length; s++) {
       var room = roomNumber.options[roomNumber.selectedIndex];
       var validGuests = getValidGuests(+room.value);
@@ -115,7 +115,7 @@
           arrayGuests[s].removeAttribute('disabled', 'disabled');
         }
       }
-    };
+    }
     var selectedGuest = guestsNumber.options[guestsNumber.selectedIndex];
     validSelectedGuest(validGuests, selectedGuest);
   };
@@ -148,7 +148,7 @@
     window.location.reload();
     buttonSubmit.removeAttribute('disabled', 'disabled');
     var errorBox = document.querySelector('.map__pin').querySelector('.error');
-    var successBox =  document.querySelector('.map__pin').querySelector('.success');
+    var successBox = document.querySelector('.map__pin').querySelector('.success');
     if (document.contains(errorBox)) {
       window.message.errorMessage.parentNode.removeChild(window.message.errorMessage);
     } else if (document.contains(successBox)) {

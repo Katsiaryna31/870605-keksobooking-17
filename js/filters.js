@@ -2,8 +2,6 @@
 
 (function () {
 
-  var type = '';
-
   var filters = document.querySelector('.map__filters');
   var typePlace = filters.querySelector('#housing-type');
 
