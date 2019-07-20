@@ -48,6 +48,7 @@
     addressForm.value = window.map.mainPinPositionFirst;
     window.map.removePins();
     window.card.closeElement();
+    resetForm.removeEventListener('click', cleanForm);
   };
 
   var addressForm = document.querySelector('#address');
@@ -98,11 +99,56 @@
   };
 
   var resetForm = addForm.querySelector('.ad-form__reset');
-  resetForm.addEventListener('click', function () {
+
+  var cleanForm = function () {
     addForm.reset();
     addressForm.setAttribute('value', window.map.mainPinPositionFirst);
     resetPage();
-  });
+
+  };
+
+  resetForm.addEventListener('click', cleanForm);
+
+  var reloadPage = function () {
+    window.location.reload();
+    buttonSubmit.removeAttribute('disabled', 'disabled');
+    if (window.card.pinList.classList.contains('error')) {
+      window.message.errorMessage.parentNode.removeChild(window.message.errorMessage);
+    } else if (window.card.pinList.classList.contains('success')) {
+      window.message.successMessage.parentNode.removeChild(window.message.successMessage);
+    }
+    document.removeEventListener('click', reloadPage);
+    document.removeEventListener('keydown', onPopupEscPress);
+  };
+
+  var buttonSubmit = addForm.querySelector('.ad-form__submit');
+
+  var onPopupEscPress = function (evt) {
+    if (evt.keyCode === window.util.escKeycode) {
+      reloadPage();
+    }
+  };
+
+  var successSave = function () {
+    window.message.success();
+    document.addEventListener('click', reloadPage);
+    document.addEventListener('keydown', onPopupEscPress);
+    cleanForm();
+  };
+
+  var errorSave = function () {
+    window.message.error();
+    document.addEventListener('click', reloadPage);
+    document.addEventListener('keydown', onPopupEscPress);
+  };
+
+  var sendData = function (evt) {
+    evt.preventDefault();
+    buttonSubmit.setAttribute('disabled', 'disabled');
+    window.backend.save(new FormData(addForm), successSave, errorSave);
+  };
+
+  addForm.addEventListener('submit', sendData);
 
   window.form = {
     domAddressElement: addressForm,
