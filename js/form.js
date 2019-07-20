@@ -87,14 +87,14 @@
   var arrayGuests = guestsNumber.querySelectorAll('option');
 
 
-  var getValidGuests = function (roomNumber) {
-    if (roomNumber === 100) {
+  var getValidGuests = function (roomValue) {
+    if (roomValue === 100) {
       return [0];
-    } else if (roomNumber === 3) {
+    } else if (roomValue === 3) {
       return [1, 2, 3];
-    } else if (roomNumber === 2) {
+    } else if (roomValue === 2) {
       return [1, 2];
-    } else if (roomNumber === 1) {
+    } else if (roomValue === 1) {
       return [1];
     }
   };

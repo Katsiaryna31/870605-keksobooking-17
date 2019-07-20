@@ -35,7 +35,7 @@
       pinsShow = pinsShow.filter(function (it) {
         return it.offer.type === type;
       });
-    };
+    }
 
     if (price === 'middle') {
       window.card.closeElement();
