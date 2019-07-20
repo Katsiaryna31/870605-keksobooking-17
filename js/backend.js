@@ -27,10 +27,6 @@
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
-    xhr.addEventListener('load', function () {
-      onLoad(xhr.response);
-    });
-
     xhr.open('POST', URL_SAVE);
 
     xhr.addEventListener('load', function () {

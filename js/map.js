@@ -28,15 +28,36 @@
     renderPins();
   };
 
-  var renderPins = function (type) {
-
+  var renderPins = function (type, price) {
     var pinsShow = pins;
     if (type && type !== 'any') {
       window.card.closeElement();
       pinsShow = pinsShow.filter(function (it) {
         return it.offer.type === type;
       });
+    };
+
+    if (price === 'middle') {
+      window.card.closeElement();
+      pinsShow = pinsShow.filter(function (it) {
+        return it.offer.price >= 10000 && it.offer.price <= 50000;
+      });
     }
+
+    if (price === 'low') {
+      window.card.closeElement();
+      pinsShow = pinsShow.filter(function (it) {
+        return it.offer.price < 10000;
+      });
+    }
+
+    if (price === 'high') {
+      window.card.closeElement();
+      pinsShow = pinsShow.filter(function (it) {
+        return it.offer.price > 50000;
+      });
+    }
+
     pinsShow = pinsShow.slice(0, 5);
 
     removePins();
