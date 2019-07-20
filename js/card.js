@@ -63,7 +63,7 @@
     if (evt.keyCode === window.util.escKeycode) {
       closeCard();
     }
-  }
+  };
 
   var closeCard = function () {
     var cardElemList = document.querySelectorAll('.map__card');
