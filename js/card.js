@@ -25,26 +25,26 @@
     cardElement.querySelector('.popup__description').textContent = oneCard.offer.description;
 
     var icons = cardElement.querySelectorAll('.popup__feature');
-    takeIconsList (icons, cardElement, oneCard);
+    takeIconsList(icons, cardElement, oneCard);
 
     var photoList = oneCard.offer.photos;
-    takePhotoList (photoList, cardElement);
+    takePhotoList(photoList, cardElement);
 
     cardElement.querySelector('.popup__close').addEventListener('click', function () {
       cardElement.parentNode.removeChild(cardElement);
-      deactivatePin(cardElement);
+      deactivatePin();
     });
 
     return cardElement;
   };
 
   var takeIconsList = function (icons, cardElement, oneCard) {
-    icons.forEach(function(element) {
+    icons.forEach(function (element) {
       var feature = element.classList[1].split('--')[1];
       if (oneCard.offer.features.indexOf(feature) === -1) {
         cardElement.querySelector('.popup__features').removeChild(element);
       }
-    })
+    });
   };
 
   var takePhotoList = function (photoList, cardElement) {
@@ -76,9 +76,9 @@
 
   var closeCard = function () {
     var cardElementsList = document.querySelectorAll('.map__card');
-    cardElementsList.forEach(function(element) {
+    cardElementsList.forEach(function (element) {
       element.parentNode.removeChild(element);
-    })
+    });
     document.removeEventListener('keydown', onPopupEscPress);
   };
 
@@ -87,7 +87,6 @@
     if (document.contains(activeElement)) {
       return activeElement.classList.remove('map__pin--active');
     }
-    cardElement.querySelector('.popup__close').removeEventListener('click', function () {});
   };
 
   window.card = {

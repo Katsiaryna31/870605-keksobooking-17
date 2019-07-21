@@ -31,11 +31,11 @@
 
   var removePins = function () {
     var pinElemenetsList = document.querySelectorAll('.map__pin');
-    pinElemenetsList.forEach (function (element) {
+    pinElemenetsList.forEach(function (element) {
       if (!element.classList.contains('map__pin--main')) {
         element.parentNode.removeChild(element);
       }
-    })
+    });
   };
 
   window.map = {

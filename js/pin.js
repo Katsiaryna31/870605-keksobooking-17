@@ -16,13 +16,13 @@
   };
 
   var deactivateActivePin = function () {
-      var pinElementsList = document.querySelectorAll('.map__pin');
-      pinElementsList.forEach (function (element) {
-        if (element.classList.contains('map__pin--active')) {
-          element.classList.remove('map__pin--active');
-        }
-      })
-  }
+    var pinElementsList = document.querySelectorAll('.map__pin');
+    pinElementsList.forEach(function (element) {
+      if (element.classList.contains('map__pin--active')) {
+        element.classList.remove('map__pin--active');
+      }
+    });
+  };
 
   var activatePin = function (activePin) {
     deactivateActivePin();

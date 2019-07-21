@@ -3,15 +3,15 @@
 (function () {
 
   var deactivateForm = function (formElement) {
-    formElement.forEach (function (element) {
+    formElement.forEach(function (element) {
       element.setAttribute('disabled', 'disabled');
-    })
+    });
   };
 
   var activateForm = function (formElement) {
-    formElement.forEach (function (element) {
+    formElement.forEach(function (element) {
       element.removeAttribute('disabled', 'disabled');
-    })
+    });
     guestsList[2].setAttribute('selected', 'selected');
   };
 
@@ -24,7 +24,7 @@
   var mapFiltersInsides = mapFilters.querySelectorAll('fieldset > input, select');
   deactivateForm(mapFiltersInsides);
 
-  addFormRequiredInsides.forEach (function (element) {
+  addFormRequiredInsides.forEach(function (element) {
     element.setAttribute('required', 'required');
   });
 
@@ -104,9 +104,9 @@
   };
 
   roomNumber.onchange = function () {
-    guestsList.forEach( function (element) {
+    guestsList.forEach(function (element) {
       element.setAttribute('disabled', 'disabled');
-    })
+    });
     for (var l = 0; l < guestsList.length; l++) {
       var room = roomNumber.options[roomNumber.selectedIndex];
       var validGuests = getValidGuests(+room.value);

@@ -6,7 +6,7 @@
 
   var successLoad = function (data) {
     pins = data;
-    window.map.renderPins(pins.slice(0,5));
+    window.map.renderPins(pins.slice(0, 5));
   };
 
   var filters = document.querySelector('.map__filters');
@@ -18,15 +18,15 @@
     changeTypePins(typePlaceSelected);
   });
 
-  var changeTypePins = window.debounce (function (typePlaceSelected) {
+  var changeTypePins = window.debounce (function(typePlaceValue) {
     var pinsSamePlace;
-    if (typePlaceSelected !== 'any') {
+    if (typePlaceValue !== 'any') {
       window.map.removePins();
       window.card.closeElement();
       pinsSamePlace = pins.filter(function (it) {
-        return it.offer.type === typePlaceSelected;
+        return it.offer.type === typePlaceValue;
       }).slice(0, 5);
-    } else if (typePlaceSelected === 'any') {
+    } else if (typePlaceValue === 'any') {
       window.map.removePins();
       window.card.closeElement();
       pinsSamePlace = pins.slice(0, 5);
@@ -41,27 +41,27 @@
     changePricePins(typePriceSelected);
   });
 
-  var changePricePins = window.debounce (function (typePriceSelected) {
+  var changePricePins = window.debounce (function(typePriceValue) {
     var pinsSamePrice;
-    if (typePriceSelected === 'middle') {
+    if (typePriceValue === 'middle') {
       window.map.removePins();
       window.card.closeElement();
       pinsSamePrice = pins.filter(function (it) {
         return it.offer.price >= 10000 && it.offer.price <= 50000;
       }).slice(0, 5);
-    } else if (typePriceSelected === 'low') {
+    } else if (typePriceValue === 'low') {
       window.map.removePins();
       window.card.closeElement();
       pinsSamePrice = pins.filter(function (it) {
         return it.offer.price < 10000;
       }).slice(0, 5);
-    } else if (typePriceSelected === 'high') {
+    } else if (typePriceValue === 'high') {
       window.map.removePins();
       window.card.closeElement();
       pinsSamePrice = pins.filter(function (it) {
         return it.offer.price > 50000;
       }).slice(0, 5);
-    } else if (typePriceSelected === 'any') {
+    } else if (typePriceValue === 'any') {
       window.map.removePins();
       window.card.closeElement();
       pinsSamePrice = pins.slice(0, 5);
@@ -76,15 +76,15 @@
     changeRoomsPins(numberRoomsSelected);
   });
 
-  var changeRoomsPins = window.debounce (function (numberRoomsSelected) {
+  var changeRoomsPins = window.debounce (function(numberRoomsValue) {
     var pinsSameRooms;
-    if (numberRoomsSelected !== 'any') {
+    if (numberRoomsValue !== 'any') {
       window.map.removePins();
       window.card.closeElement();
       pinsSameRooms = pins.filter(function (it) {
-        return it.offer.rooms === +numberRoomsSelected;
+        return it.offer.rooms === +numberRoomsValue;
       }).slice(0, 5);
-    } else if (numberRoomsSelected === 'any') {
+    } else if (numberRoomsValue === 'any') {
       window.map.removePins();
       window.card.closeElement();
       pinsSameRooms = pins.slice(0, 5);
@@ -99,19 +99,19 @@
     changeGuestsPins(numberGuestsSelected);
   });
 
-  var changeGuestsPins = window.debounce (function (numberGuestsSelected) {
+  var changeGuestsPins = window.debounce (function(numberGuestsValue) {
     var pinsSameGuests;
-    if (numberGuestsSelected !== 'any' && numberGuestsSelected !== '0') {
+    if (numberGuestsValue !== 'any' && numberGuestsValued !== '0') {
       window.map.removePins();
       window.card.closeElement();
       pinsSameGuests = pins.filter(function (it) {
-        return it.offer.guests === +numberGuestsSelected;
+        return it.offer.guests === +numberGuestsValue;
       }).slice(0, 5);
-    } else if (numberGuestsSelected === 'any') {
+    } else if (numberGuestsValue === 'any') {
       window.map.removePins();
       window.card.closeElement();
       pinsSameGuests = pins.slice(0, 5);
-    } else if (numberGuestsSelected === '0') {
+    } else if (numberGuestsValue === '0') {
       window.map.removePins();
       window.card.closeElement();
       pinsSameGuests = pins.filter(function (it) {
@@ -128,19 +128,19 @@
     changeFeaturesPins(featuresSelected);
   });
 
-  var changeFeaturesPins = window.debounce (function (featuresSelected) {
+  var changeFeaturesPins = window.debounce (function(featuresValue) {
     window.map.removePins();
     window.card.closeElement();
     var pinsSameFeatures = pins.filter(function (it) {
-      it.offer.features.forEach( function(element) {
-        return element === featuresSelected;
-      })
+      it.offer.features.forEach(function (element) {
+        return element === featuresValue;
+      });
     }).slice(0, 5);
     updatePins(pinsSameFeatures);
   });
 
-  var updatePins = function (pins) {
-    window.map.renderPins(pins);
+  var updatePins = function (pinsFilterSelected) {
+    window.map.renderPins(pinsFilterSelected);
     typePlace.removeEventListener('change', function () {});
     housePrice.removeEventListener('change', function () {});
     numberRooms.removeEventListener('change', function () {});
