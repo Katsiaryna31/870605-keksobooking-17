@@ -18,7 +18,7 @@
     changeTypePins(typePlaceSelected);
   });
 
-  var changeTypePins = window.debounce (function(typePlaceValue) {
+  var changeTypePins = window.debounce(function (typePlaceValue) {
     var pinsSamePlace;
     if (typePlaceValue !== 'any') {
       window.map.removePins();
@@ -41,7 +41,7 @@
     changePricePins(typePriceSelected);
   });
 
-  var changePricePins = window.debounce (function(typePriceValue) {
+  var changePricePins = window.debounce(function (typePriceValue) {
     var pinsSamePrice;
     if (typePriceValue === 'middle') {
       window.map.removePins();
@@ -76,7 +76,7 @@
     changeRoomsPins(numberRoomsSelected);
   });
 
-  var changeRoomsPins = window.debounce (function(numberRoomsValue) {
+  var changeRoomsPins = window.debounce(function (numberRoomsValue) {
     var pinsSameRooms;
     if (numberRoomsValue !== 'any') {
       window.map.removePins();
@@ -99,9 +99,9 @@
     changeGuestsPins(numberGuestsSelected);
   });
 
-  var changeGuestsPins = window.debounce (function(numberGuestsValue) {
+  var changeGuestsPins = window.debounce(function (numberGuestsValue) {
     var pinsSameGuests;
-    if (numberGuestsValue !== 'any' && numberGuestsValued !== '0') {
+    if (numberGuestsValue !== 'any' && numberGuestsValue !== '0') {
       window.map.removePins();
       window.card.closeElement();
       pinsSameGuests = pins.filter(function (it) {
@@ -128,7 +128,7 @@
     changeFeaturesPins(featuresSelected);
   });
 
-  var changeFeaturesPins = window.debounce (function(featuresValue) {
+  var changeFeaturesPins = window.debounce(function (featuresValue) {
     window.map.removePins();
     window.card.closeElement();
     var pinsSameFeatures = pins.filter(function (it) {

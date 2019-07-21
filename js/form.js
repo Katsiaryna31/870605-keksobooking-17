@@ -97,6 +97,7 @@
     } else if (roomValue === 1) {
       return [1];
     }
+    return roomValue;
   };
 
   guestsNumber.onchange = function () {

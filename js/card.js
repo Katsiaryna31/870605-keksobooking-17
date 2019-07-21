@@ -82,11 +82,12 @@
     document.removeEventListener('keydown', onPopupEscPress);
   };
 
-  var deactivatePin = function (cardElement) {
+  var deactivatePin = function () {
     var activeElement = document.querySelector('.map__pins').querySelector('.map__pin--active');
     if (document.contains(activeElement)) {
       return activeElement.classList.remove('map__pin--active');
     }
+    return activeElement;
   };
 
   window.card = {
