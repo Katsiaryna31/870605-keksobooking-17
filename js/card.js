@@ -11,7 +11,6 @@
     cardElement.querySelector('.popup__avatar').src = oneCard.author.avatar;
     cardElement.querySelector('.popup__title').textContent = oneCard.offer.title;
     cardElement.querySelector('.popup__text--address').textContent = oneCard.offer.address;
-
     cardElement.querySelector('.popup__text--price').textContent = oneCard.offer.price;
 
     var offerTypetoPopupType = {
@@ -26,30 +25,39 @@
     cardElement.querySelector('.popup__description').textContent = oneCard.offer.description;
 
     var icons = cardElement.querySelectorAll('.popup__feature');
-    for (var q = 0; q < icons.length; q++) {
-      var feature = icons[q].classList[1].split('--')[1];
-      if (oneCard.offer.features.indexOf(feature) === -1) {
-        cardElement.querySelector('.popup__features').removeChild(icons[q]);
-      }
-    }
+    takeIconsList (icons, cardElement, oneCard);
 
     var photoList = oneCard.offer.photos;
+    takePhotoList (photoList, cardElement);
+
+    cardElement.querySelector('.popup__close').addEventListener('click', function () {
+      cardElement.parentNode.removeChild(cardElement);
+      deactivatePin(cardElement);
+    });
+
+    return cardElement;
+  };
+
+  var takeIconsList = function (icons, cardElement, oneCard) {
+    icons.forEach(function(element) {
+      var feature = element.classList[1].split('--')[1];
+      if (oneCard.offer.features.indexOf(feature) === -1) {
+        cardElement.querySelector('.popup__features').removeChild(element);
+      }
+    })
+  };
+
+  var takePhotoList = function (photoList, cardElement) {
     if (photoList.length === 0) {
       cardElement.removeChild(cardElement.querySelector('.popup__photos'));
     } else {
       cardElement.querySelector('.popup__photo').src = photoList[0];
-      for (var v = 1; v < photoList.length; v++) {
+      for (var i = 1; i < photoList.length; i++) {
         var placePhoto = cardElement.querySelector('.popup__photo').cloneNode(true);
-        placePhoto.src = photoList[v];
+        placePhoto.src = photoList[i];
         cardElement.querySelector('.popup__photos').appendChild(placePhoto);
       }
     }
-
-    cardElement.querySelector('.popup__close').addEventListener('click', function () {
-      cardElement.parentNode.removeChild(cardElement);
-    });
-
-    return cardElement;
   };
 
   var pinList = document.querySelector('.map__pins');
@@ -62,15 +70,24 @@
   var onPopupEscPress = function (evt) {
     if (evt.keyCode === window.util.escKeycode) {
       closeCard();
+      deactivatePin();
     }
   };
 
   var closeCard = function () {
-    var cardElemList = document.querySelectorAll('.map__card');
-    for (var j = 0; j < cardElemList.length; j++) {
-      cardElemList[j].parentNode.removeChild(cardElemList[j]);
-    }
+    var cardElementsList = document.querySelectorAll('.map__card');
+    cardElementsList.forEach(function(element) {
+      element.parentNode.removeChild(element);
+    })
     document.removeEventListener('keydown', onPopupEscPress);
+  };
+
+  var deactivatePin = function (cardElement) {
+    var activeElement = document.querySelector('.map__pins').querySelector('.map__pin--active');
+    if (document.contains(activeElement)) {
+      return activeElement.classList.remove('map__pin--active');
+    }
+    cardElement.querySelector('.popup__close').removeEventListener('click', function () {});
   };
 
   window.card = {

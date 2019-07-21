@@ -65,11 +65,11 @@
       document.removeEventListener('mouseup', onMouseUp);
 
       if (dragged) {
-        var onClickPreventDefault = function (onClickEvt) {
+        var onMainPinClick = function (onClickEvt) {
           onClickEvt.preventDefault();
-          window.map.mainPin.removeEventListener('click', onClickPreventDefault);
+          window.map.mainPin.removeEventListener('click', onMainPinClick);
         };
-        window.map.mainPin.addEventListener('click', onClickPreventDefault);
+        window.map.mainPin.addEventListener('click', onMainPinClick);
       }
     };
 

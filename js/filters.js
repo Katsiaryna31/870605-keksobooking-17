@@ -2,19 +2,156 @@
 
 (function () {
 
+  var pins = [];
+
+  var successLoad = function (data) {
+    pins = data;
+    window.map.renderPins(pins.slice(0,5));
+  };
+
   var filters = document.querySelector('.map__filters');
+
+  var typePlaceSelected;
   var typePlace = filters.querySelector('#housing-type');
-
   typePlace.addEventListener('change', function () {
-    var type = typePlace.options[typePlace.selectedIndex].value;
-    window.map.renderPins(type);
+    typePlaceSelected = typePlace.options[typePlace.selectedIndex].value;
+    changeTypePins(typePlaceSelected);
   });
 
+  var changeTypePins = window.debounce (function (typePlaceSelected) {
+    var pinsSamePlace;
+    if (typePlaceSelected !== 'any') {
+      window.map.removePins();
+      window.card.closeElement();
+      pinsSamePlace = pins.filter(function (it) {
+        return it.offer.type === typePlaceSelected;
+      }).slice(0, 5);
+    } else if (typePlaceSelected === 'any') {
+      window.map.removePins();
+      window.card.closeElement();
+      pinsSamePlace = pins.slice(0, 5);
+    }
+    updatePins(pinsSamePlace);
+  });
+
+  var typePriceSelected;
   var housePrice = filters.querySelector('#housing-price');
-
   housePrice.addEventListener('change', function () {
-    var price = housePrice.options[housePrice.selectedIndex].value;
-    window.map.renderPins(price);
+    typePriceSelected = housePrice.options[housePrice.selectedIndex].value;
+    changePricePins(typePriceSelected);
   });
+
+  var changePricePins = window.debounce (function (typePriceSelected) {
+    var pinsSamePrice;
+    if (typePriceSelected === 'middle') {
+      window.map.removePins();
+      window.card.closeElement();
+      pinsSamePrice = pins.filter(function (it) {
+        return it.offer.price >= 10000 && it.offer.price <= 50000;
+      }).slice(0, 5);
+    } else if (typePriceSelected === 'low') {
+      window.map.removePins();
+      window.card.closeElement();
+      pinsSamePrice = pins.filter(function (it) {
+        return it.offer.price < 10000;
+      }).slice(0, 5);
+    } else if (typePriceSelected === 'high') {
+      window.map.removePins();
+      window.card.closeElement();
+      pinsSamePrice = pins.filter(function (it) {
+        return it.offer.price > 50000;
+      }).slice(0, 5);
+    } else if (typePriceSelected === 'any') {
+      window.map.removePins();
+      window.card.closeElement();
+      pinsSamePrice = pins.slice(0, 5);
+    }
+    updatePins(pinsSamePrice);
+  });
+
+  var numberRoomsSelected;
+  var numberRooms = filters.querySelector('#housing-rooms');
+  numberRooms.addEventListener('change', function () {
+    numberRoomsSelected = numberRooms.options[numberRooms.selectedIndex].value;
+    changeRoomsPins(numberRoomsSelected);
+  });
+
+  var changeRoomsPins = window.debounce (function (numberRoomsSelected) {
+    var pinsSameRooms;
+    if (numberRoomsSelected !== 'any') {
+      window.map.removePins();
+      window.card.closeElement();
+      pinsSameRooms = pins.filter(function (it) {
+        return it.offer.rooms === +numberRoomsSelected;
+      }).slice(0, 5);
+    } else if (numberRoomsSelected === 'any') {
+      window.map.removePins();
+      window.card.closeElement();
+      pinsSameRooms = pins.slice(0, 5);
+    }
+    updatePins(pinsSameRooms);
+  });
+
+  var numberGuestsSelected;
+  var numberGuests = filters.querySelector('#housing-guests');
+  numberGuests.addEventListener('change', function () {
+    numberGuestsSelected = numberGuests.options[numberGuests.selectedIndex].value;
+    changeGuestsPins(numberGuestsSelected);
+  });
+
+  var changeGuestsPins = window.debounce (function (numberGuestsSelected) {
+    var pinsSameGuests;
+    if (numberGuestsSelected !== 'any' && numberGuestsSelected !== '0') {
+      window.map.removePins();
+      window.card.closeElement();
+      pinsSameGuests = pins.filter(function (it) {
+        return it.offer.guests === +numberGuestsSelected;
+      }).slice(0, 5);
+    } else if (numberGuestsSelected === 'any') {
+      window.map.removePins();
+      window.card.closeElement();
+      pinsSameGuests = pins.slice(0, 5);
+    } else if (numberGuestsSelected === '0') {
+      window.map.removePins();
+      window.card.closeElement();
+      pinsSameGuests = pins.filter(function (it) {
+        return it.offer.guests >= 100;
+      }).slice(0, 5);
+    }
+    updatePins(pinsSameGuests);
+  });
+
+  var featuresSelected;
+  var features = filters.querySelector('#housing-features');
+  features.addEventListener('click', function () {
+    featuresSelected = features.input.value;
+    changeFeaturesPins(featuresSelected);
+  });
+
+  var changeFeaturesPins = window.debounce (function (featuresSelected) {
+    window.map.removePins();
+    window.card.closeElement();
+    var pinsSameFeatures = pins.filter(function (it) {
+      it.offer.features.forEach( function(element) {
+        return element === featuresSelected;
+      })
+    }).slice(0, 5);
+    updatePins(pinsSameFeatures);
+  });
+
+  var updatePins = function (pins) {
+    window.map.renderPins(pins);
+    typePlace.removeEventListener('change', function () {});
+    housePrice.removeEventListener('change', function () {});
+    numberRooms.removeEventListener('change', function () {});
+    numberGuests.removeEventListener('change', function () {});
+    features.removeEventListener('click', function () {});
+  };
+
+  window.filters = {
+    pins: pins,
+    successLoad: successLoad
+  };
+
 
 })();

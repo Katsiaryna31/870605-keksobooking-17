@@ -2,31 +2,31 @@
 
 (function () {
 
-  var deactivateForm = function (element) {
-    for (var m = 0; m < element.length; m++) {
-      element[m].setAttribute('disabled', 'disabled');
-    }
+  var deactivateForm = function (formElement) {
+    formElement.forEach (function (element) {
+      element.setAttribute('disabled', 'disabled');
+    })
   };
 
-  var activateForm = function (element) {
-    for (var l = 0; l < element.length; l++) {
-      element[l].removeAttribute('disabled', 'disabled');
-    }
-    guestsNumber[2].setAttribute('selected', 'selected');
+  var activateForm = function (formElement) {
+    formElement.forEach (function (element) {
+      element.removeAttribute('disabled', 'disabled');
+    })
+    guestsList[2].setAttribute('selected', 'selected');
   };
 
   var addForm = document.querySelector('.ad-form');
   var addFormInsides = addForm.querySelectorAll('fieldset > input, select');
-  var addFormRequiredIndides = addForm.querySelectorAll('fieldset > input:not(.feature__checkbox), select');
+  var addFormRequiredInsides = addForm.querySelectorAll('fieldset > input:not(.feature__checkbox), select');
   deactivateForm(addFormInsides);
 
   var mapFilters = document.querySelector('.map__filters');
   var mapFiltersInsides = mapFilters.querySelectorAll('fieldset > input, select');
   deactivateForm(mapFiltersInsides);
 
-  for (var x = 0; x < addFormRequiredIndides.length; x++) {
-    addFormRequiredIndides[x].setAttribute('required', 'required');
-  }
+  addFormRequiredInsides.forEach (function (element) {
+    element.setAttribute('required', 'required');
+  });
 
   var activatePage = function () {
     addForm.classList.remove('ad-form--disabled');
@@ -34,7 +34,7 @@
     activateForm(mapFiltersInsides);
     activateForm(addFormInsides);
     window.map.removePins();
-    window.backend.load(window.map.successLoad, window.message.error);
+    window.backend.load(window.filters.successLoad, window.notice.showError);
 
   };
 
@@ -66,14 +66,14 @@
 
   var price = document.querySelector('#price');
   var typePlace = document.querySelector('#type');
-  var arrayPlaces = typePlace.querySelectorAll('option');
+  var placesList = typePlace.querySelectorAll('option');
 
   typePlace.onchange = function () {
-    for (var c = 0; c < arrayPlaces.length; c++) {
+    for (var k = 0; k < placesList.length; k++) {
       var selectedPlaceIndex = typePlace.selectedIndex;
-      if (selectedPlaceIndex === c) {
-        price.setAttribute('min', window.data.priceMinValue[c]);
-        price.placeholder = window.data.priceMinValue[c];
+      if (selectedPlaceIndex === k) {
+        price.setAttribute('min', window.data.priceMinValues[k]);
+        price.placeholder = window.data.priceMinValues[k];
       }
     }
   };
@@ -84,7 +84,7 @@
 
   var roomNumber = document.querySelector('#room_number');
   var guestsNumber = document.querySelector('#capacity');
-  var arrayGuests = guestsNumber.querySelectorAll('option');
+  var guestsList = guestsNumber.querySelectorAll('option');
 
 
   var getValidGuests = function (roomValue) {
@@ -104,15 +104,15 @@
   };
 
   roomNumber.onchange = function () {
-    for (var w = 0; w < arrayGuests.length; w++) {
-      arrayGuests[w].setAttribute('disabled', 'disabled');
-    }
-    for (var s = 0; s < arrayGuests.length; s++) {
+    guestsList.forEach( function (element) {
+      element.setAttribute('disabled', 'disabled');
+    })
+    for (var l = 0; l < guestsList.length; l++) {
       var room = roomNumber.options[roomNumber.selectedIndex];
       var validGuests = getValidGuests(+room.value);
-      for (var t = 0; t <= validGuests.length; t++) {
-        if (+arrayGuests[s].value === validGuests[t]) {
-          arrayGuests[s].removeAttribute('disabled', 'disabled');
+      for (var j = 0; j <= validGuests.length; j++) {
+        if (+guestsList[l].value === validGuests[j]) {
+          guestsList[l].removeAttribute('disabled', 'disabled');
         }
       }
     }
@@ -121,9 +121,9 @@
   };
 
   var validSelectedGuest = function (validGuests, selectedGuest) {
-    for (var v = 0; v < validGuests.length; v++) {
+    for (var t = 0; t < validGuests.length; t++) {
       var invalid = true;
-      if (+selectedGuest.value === validGuests[v]) {
+      if (+selectedGuest.value === validGuests[t]) {
         invalid = false;
       }
       if (invalid) {
@@ -150,9 +150,9 @@
     var errorBox = document.querySelector('.map__pin').querySelector('.error');
     var successBox = document.querySelector('.map__pin').querySelector('.success');
     if (document.contains(errorBox)) {
-      window.message.errorMessage.parentNode.removeChild(window.message.errorMessage);
+      window.notice.errorMessage.parentNode.removeChild(window.notice.errorMessage);
     } else if (document.contains(successBox)) {
-      window.message.successMessage.parentNode.removeChild(window.message.successMessage);
+      window.notice.successMessage.parentNode.removeChild(window.notice.successMessage);
     }
     document.removeEventListener('click', reloadPage);
     document.removeEventListener('keydown', onPopupEscPress);
@@ -166,15 +166,15 @@
     }
   };
 
-  var successSave = function () {
-    window.message.success();
+  var saveSuccess = function () {
+    window.notice.showSuccess();
     document.addEventListener('click', reloadPage);
     document.addEventListener('keydown', onPopupEscPress);
     cleanForm();
   };
 
-  var errorSave = function () {
-    window.message.error();
+  var saveError = function () {
+    window.notice.showError();
     document.addEventListener('click', reloadPage);
     document.addEventListener('keydown', onPopupEscPress);
   };
@@ -182,7 +182,8 @@
   var sendData = function (evt) {
     evt.preventDefault();
     buttonSubmit.setAttribute('disabled', 'disabled');
-    window.backend.save(new FormData(addForm), successSave, errorSave);
+    window.backend.save(new FormData(addForm), saveSuccess, saveError);
+    addForm.removeEventListener('submit', sendData);
   };
 
   addForm.addEventListener('submit', sendData);
