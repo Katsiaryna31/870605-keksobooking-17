@@ -7,7 +7,7 @@
     .querySelector('.error');
 
 
-  var errorHandler = function () {
+  var sendErrorText = function () {
     document.querySelector('.map__pin').insertAdjacentElement('beforeend', errorMessage);
   };
 
@@ -19,13 +19,13 @@
     .content
     .querySelector('.success');
 
-  var successHandler = function () {
+  var sendSuccessText = function () {
     document.querySelector('.map__pin').insertAdjacentElement('beforeend', successMessage);
   };
 
-  window.message = {
-    error: errorHandler,
-    success: successHandler,
+  window.notice = {
+    showError: sendErrorText,
+    showSuccess: sendSuccessText,
     errorMessage: errorMessage,
     successMessage: successMessage
   };

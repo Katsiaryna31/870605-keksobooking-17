@@ -15,14 +15,17 @@
     return advertElement;
   };
 
-  var activatePin = function (activePin) {
-    var pinElemList = document.querySelectorAll('.map__pin');
-    for (var h = 0; h < pinElemList.length; h++) {
-      if (pinElemList[h].classList.contains('map__pin--active')) {
-        pinElemList[h].classList.remove('map__pin--active');
+  var deactivateActivePin = function () {
+    var pinElementsList = document.querySelectorAll('.map__pin');
+    pinElementsList.forEach(function (element) {
+      if (element.classList.contains('map__pin--active')) {
+        element.classList.remove('map__pin--active');
       }
-    }
+    });
+  };
 
+  var activatePin = function (activePin) {
+    deactivateActivePin();
     activePin.classList.add('map__pin--active');
   };
 
