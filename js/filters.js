@@ -99,7 +99,7 @@
         var found = 0;
         it.offer.features.forEach(function (offerFeature) {
           featuresSelected.forEach(function (selectedFeature) {
-            if (offerFeature === selectedFeature){
+            if (offerFeature === selectedFeature) {
               found++;
             }
           });

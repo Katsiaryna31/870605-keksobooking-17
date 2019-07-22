@@ -90,11 +90,11 @@
   var getValidGuests = function (roomValue) {
     var roomValueValid;
     if (roomValue === 100) {
-      roomValueValid =  [0];
+      roomValueValid = [0];
     } else if (roomValue === 3) {
-      roomValueValid =  [1, 2, 3];
+      roomValueValid = [1, 2, 3];
     } else if (roomValue === 2) {
-      roomValueValid =  [1, 2];
+      roomValueValid = [1, 2];
     } else if (roomValue === 1) {
       roomValueValid = [1];
     }
