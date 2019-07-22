@@ -4,9 +4,10 @@
 
   var pins = [];
   var typePlaceSelected;
-  var typePriceSelected
+  var typePriceSelected;
   var numberRoomsSelected;
   var numberGuestsSelected;
+  var featuresSelected = [];
 
   var successLoad = function (data) {
     pins = data;
@@ -52,7 +53,7 @@
       }
       updatePins();
     });
-  })
+  });
 
   var updatePins = function () {
     var visiblePins = pins;
@@ -101,8 +102,8 @@
             if (offerFeature === selectedFeature){
               found++;
             }
-          })
-        })
+          });
+        });
         return found === featuresSelected.length;
       });
     }
@@ -113,7 +114,7 @@
     numberRooms.removeEventListener('change', function () { });
     numberGuests.removeEventListener('change', function () { });
     featuresList.forEach(function (element) {
-      element.removeEventListener('change', function () { })
+      element.removeEventListener('change', function () { });
     });
   };
 
