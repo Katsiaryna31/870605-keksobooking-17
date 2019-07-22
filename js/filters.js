@@ -55,7 +55,7 @@
     });
   });
 
-  var updatePins = function () {
+  var updatePins = window.debounce(function () {
     var visiblePins = pins;
     window.map.removePins();
     window.card.closeElement();
@@ -116,7 +116,7 @@
     featuresList.forEach(function (element) {
       element.removeEventListener('change', function () { });
     });
-  };
+  });
 
   window.filters = {
     pins: pins,
