@@ -31,9 +31,9 @@
 
   var removePins = function () {
     var pinElemenetsList = document.querySelectorAll('.map__pin');
-    pinElemenetsList.forEach(function (element) {
-      if (!element.classList.contains('map__pin--main')) {
-        element.parentNode.removeChild(element);
+    pinElemenetsList.forEach(function (pinElement) {
+      if (!pinElement.classList.contains('map__pin--main')) {
+        pinElement.parentNode.removeChild(pinElement);
       }
     });
   };

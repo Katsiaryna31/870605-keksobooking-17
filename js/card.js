@@ -39,10 +39,10 @@
   };
 
   var takeIconsList = function (icons, cardElement, oneCard) {
-    icons.forEach(function (element) {
-      var feature = element.classList[1].split('--')[1];
+    icons.forEach(function (iconElement) {
+      var feature = iconElement.classList[1].split('--')[1];
       if (oneCard.offer.features.indexOf(feature) === -1) {
-        cardElement.querySelector('.popup__features').removeChild(element);
+        cardElement.querySelector('.popup__features').removeChild(iconElement);
       }
     });
   };
@@ -76,8 +76,8 @@
 
   var closeCard = function () {
     var cardElementsList = document.querySelectorAll('.map__card');
-    cardElementsList.forEach(function (element) {
-      element.parentNode.removeChild(element);
+    cardElementsList.forEach(function (cardElement) {
+      cardElement.parentNode.removeChild(cardElement);
     });
     document.removeEventListener('keydown', onPopupEscPress);
   };
