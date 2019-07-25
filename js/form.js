@@ -42,10 +42,12 @@
     addressForm.value = window.map.mainPinPositionFirst;
     window.map.removePins();
     window.card.closeElement();
-    var pictureList = document.querySelectorAll('.ad-form__photo > img');
-    pictureList.forEach(function (pictureElement) {
-      pictureElement.parentNode.removeChild(pictureElement);
-    });
+    var pictureList = document.querySelectorAll('.ad-form__photo');
+    for (var a = 1; a < pictureList.length; a++) {
+      pictureList[a].parentNode.removeChild(pictureList[a]);
+    }
+    var placePicture = pictureList[0].querySelector('img');
+    placePicture.parentNode.removeChild(placePicture);
     window.avatar.preview.src = 'img/muffin-grey.svg';
   };
 
