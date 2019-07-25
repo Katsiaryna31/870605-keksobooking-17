@@ -8,7 +8,7 @@
 
 
   var sendErrorText = function () {
-    document.querySelector('.map__pin').insertAdjacentElement('beforeend', errorMessage);
+    document.querySelector('body').insertAdjacentElement('afterbegin', errorMessage);
   };
 
   errorMessage.querySelector('.error__button').addEventListener('click', function () {
@@ -20,7 +20,7 @@
     .querySelector('.success');
 
   var sendSuccessText = function () {
-    document.querySelector('.map__pin').insertAdjacentElement('beforeend', successMessage);
+    document.querySelector('body').insertAdjacentElement('afterbegin', successMessage);
   };
 
   window.notice = {

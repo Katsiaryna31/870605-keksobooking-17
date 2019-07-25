@@ -5,6 +5,13 @@
     .content
     .querySelector('.map__card');
 
+  var offerTypetoPopupType = {
+    'bungalo': 'Бунгало',
+    'flat': 'Квартира',
+    'house': 'Дом',
+    'palace': 'Дворец',
+  };
+
   var renderCard = function (oneCard) {
     var cardElement = card.cloneNode(true);
 
@@ -13,12 +20,6 @@
     cardElement.querySelector('.popup__text--address').textContent = oneCard.offer.address;
     cardElement.querySelector('.popup__text--price').textContent = oneCard.offer.price;
 
-    var offerTypetoPopupType = {
-      'bungalo': 'Бунгало',
-      'flat': 'Квартира',
-      'house': 'Дом',
-      'palace': 'Дворец',
-    };
     cardElement.querySelector('.popup__type').textContent = offerTypetoPopupType[oneCard.offer.type];
     cardElement.querySelector('.popup__text--capacity').textContent = oneCard.offer.rooms + ' комнаты для ' + oneCard.offer.guests + ' гостей';
     cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + oneCard.offer.checkin + ', выезд до ' + oneCard.offer.checkout;

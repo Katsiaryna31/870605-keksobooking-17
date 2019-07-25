@@ -13,107 +13,81 @@
     highPoint: 50000
   };
   var guestsLimit = 100;
+  var numberPins = 5;
 
   var successLoad = function (data) {
     pins = data;
-    window.map.renderPins(pins.slice(0, 5));
+    window.map.renderPins(pins.slice(0, numberPins));
+    activateFilters ();
+  };
+
+  var activateFilters = function () {
+    filtersList.forEach(function (filterElement) {
+      filterElement.removeAttribute('disabled', 'disabled');
+    });
   };
 
   var filters = document.querySelector('.map__filters');
+  var filtersList = filters.querySelectorAll('select, input');
+  filtersList.forEach(function (filterElement) {
+    filterElement.setAttribute('disabled', 'disabled');
+  });
 
   var typePlace = filters.querySelector('#housing-type');
-  typePlace.addEventListener('change', window.debounce(function () {
-    typePlaceSelected = typePlace.options[typePlace.selectedIndex].value;
-    updatePins();
-  }));
-
   var housePrice = filters.querySelector('#housing-price');
-  housePrice.addEventListener('change', window.debounce(function () {
-    typePriceSelected = housePrice.options[housePrice.selectedIndex].value;
-    updatePins();
-  }));
-
   var numberRooms = filters.querySelector('#housing-rooms');
-  numberRooms.addEventListener('change', window.debounce(function () {
-    numberRoomsSelected = numberRooms.options[numberRooms.selectedIndex].value;
-    updatePins();
-  }));
-
   var numberGuests = filters.querySelector('#housing-guests');
-  numberGuests.addEventListener('change', window.debounce(function () {
-    numberGuestsSelected = numberGuests.options[numberGuests.selectedIndex].value;
-    updatePins();
-  }));
-
   var features = filters.querySelectorAll('#housing-features > input');
   var featuresList = Array.from(features);
-  featuresList.forEach(function (featureElement) {
-    featureElement.addEventListener('change', window.debounce(function () {
-      if (featureElement.checked) {
-        featuresSelected.push(featureElement.value);
-      } else {
-        featuresSelected = featuresSelected.filter(function (feature) {
-          return feature !== featureElement.value;
-        });
-      }
-      updatePins();
-    }));
-  });
+
+  filters.addEventListener('change', window.debounce(function () {
+    typePlaceSelected = typePlace.options[typePlace.selectedIndex].value;
+    typePriceSelected = housePrice.options[housePrice.selectedIndex].value;
+    numberRoomsSelected = numberRooms.options[numberRooms.selectedIndex].value;
+    numberGuestsSelected = numberGuests.options[numberGuests.selectedIndex].value;
+    featuresSelected = filters.querySelectorAll('input[name=features]:checked');
+    updatePins();
+  }));
 
   var updatePins = function () {
     var visiblePins = pins;
     window.map.removePins();
     window.card.closeElement();
-    if (typePlaceSelected && typePlaceSelected !== 'any') {
-      visiblePins = visiblePins.filter(function (it) {
-        return it.offer.type === typePlaceSelected;
-      });
-    }
-    if (typePriceSelected === 'middle') {
-      visiblePins = visiblePins.filter(function (it) {
-        return it.offer.price >= priceLimits.lowPoint && it.offer.price <= priceLimits.highPoint;
-      });
-    } else if (typePriceSelected === 'low') {
-      visiblePins = visiblePins.filter(function (it) {
-        return it.offer.price < priceLimits.lowPoint;
-      });
-    } else if (typePriceSelected === 'high') {
-      visiblePins = visiblePins.filter(function (it) {
-        return it.offer.price > priceLimits.highPoint;
-      });
-    }
-
-    if (numberRoomsSelected && numberRoomsSelected !== 'any') {
-      visiblePins = visiblePins.filter(function (it) {
-        return it.offer.rooms === +numberRoomsSelected;
-      });
-    }
-
-    if (numberGuestsSelected && numberGuestsSelected !== 'any' && numberGuestsSelected !== '0') {
-      visiblePins = visiblePins.filter(function (it) {
-        return it.offer.guests === +numberGuestsSelected;
-      });
-    } else if (numberGuestsSelected === '0') {
-      visiblePins = visiblePins.filter(function (it) {
-        return it.offer.guests >= guestsLimit;
-      });
-    }
-
-    if (featuresSelected.length > 0) {
-      visiblePins = visiblePins.filter(function (it) {
-        var found = 0;
-        it.offer.features.forEach(function (offerFeature) {
-          featuresSelected.forEach(function (selectedFeature) {
-            if (offerFeature === selectedFeature) {
-              found++;
-            }
-          });
+    visiblePins = visiblePins.filter(function (it) {
+      var isFiltered = true;
+      if (typePlaceSelected && typePlaceSelected !== 'any' && it.offer.type !== typePlaceSelected) {
+        isFiltered =  false;
+      }
+      if (typePriceSelected === 'middle' && it.offer.price < priceLimits.lowPoint && it.offer.price > priceLimits.highPoint) {
+        isFiltered =  false;
+      } else if (typePriceSelected === 'low' && it.offer.price >= priceLimits.lowPoint) {
+        isFiltered =  false;
+      } else if (typePriceSelected === 'high' && it.offer.price <= priceLimits.highPoint) {
+        isFiltered =  false;
+      }
+      if (numberRoomsSelected && numberRoomsSelected !== 'any' && it.offer.rooms !== +numberRoomsSelected) {
+        isFiltered =  false;
+      }
+      if (numberGuestsSelected && numberGuestsSelected !== 'any' && numberGuestsSelected !== '0' && it.offer.guests !== +numberGuestsSelected) {
+        isFiltered =  false;
+      } else if (numberGuestsSelected === '0' && it.offer.guests < guestsLimit) {
+        isFiltered =  false;
+      }
+      var found = 0;
+      it.offer.features.forEach(function (offerFeature) {
+        featuresSelected.forEach(function (selectedFeature) {
+          if (offerFeature === selectedFeature.value) {
+            found++;
+          }
         });
-        return found === featuresSelected.length;
       });
-    }
+      if (featuresSelected.length > 0 && found !== featuresSelected.length) {
+        isFiltered =  false;
+      }
+      return isFiltered;
+      })
 
-    window.map.renderPins(visiblePins.slice(0, 5));
+    window.map.renderPins(visiblePins.slice(0, numberPins));
     typePlace.removeEventListener('change', function () { });
     housePrice.removeEventListener('change', function () { });
     numberRooms.removeEventListener('change', function () { });

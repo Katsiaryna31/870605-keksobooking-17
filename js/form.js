@@ -13,16 +13,13 @@
       element.removeAttribute('disabled', 'disabled');
     });
     guestsList[2].setAttribute('selected', 'selected');
+
   };
 
   var addForm = document.querySelector('.ad-form');
-  var addFormInsides = addForm.querySelectorAll('fieldset > input, select');
+  var addFormInsides = addForm.querySelectorAll('input, select, button');
   var addFormRequiredInsides = addForm.querySelectorAll('fieldset > input:not(.feature__checkbox), select');
   deactivateForm(addFormInsides);
-
-  var mapFilters = document.querySelector('.map__filters');
-  var mapFiltersInsides = mapFilters.querySelectorAll('fieldset > input, select');
-  deactivateForm(mapFiltersInsides);
 
   addFormRequiredInsides.forEach(function (element) {
     element.setAttribute('required', 'required');
@@ -31,15 +28,12 @@
   var activatePage = function () {
     addForm.classList.remove('ad-form--disabled');
 
-    activateForm(mapFiltersInsides);
     activateForm(addFormInsides);
     window.map.removePins();
     window.backend.load(window.filters.successLoad, window.notice.showError);
-
   };
 
   var resetPage = function () {
-    deactivateForm(mapFiltersInsides);
     deactivateForm(addFormInsides);
     window.map.item.classList.add('map--faded');
     addForm.classList.add('ad-form--disabled');
@@ -48,7 +42,11 @@
     addressForm.value = window.map.mainPinPositionFirst;
     window.map.removePins();
     window.card.closeElement();
-    resetForm.removeEventListener('click', cleanForm);
+    var pictureList = document.querySelectorAll('.ad-form__photo > img');
+    pictureList.forEach( function (pictureElement) {
+      pictureElement.parentNode.removeChild(pictureElement);
+    });
+    window.avatar.preview.src = 'img/muffin-grey.svg';
   };
 
   var addressForm = document.querySelector('#address');
@@ -125,7 +123,7 @@
   var validSelectedGuest = function (validGuests, selectedGuest) {
     for (var t = 0; t < validGuests.length; t++) {
       var invalid = true;
-      if (+selectedGuest.value === validGuests[t]) {
+      if (+selectedGuest.value <= validGuests[t]) {
         invalid = false;
       }
       if (invalid) {
@@ -138,25 +136,25 @@
 
   var resetForm = addForm.querySelector('.ad-form__reset');
 
-  var cleanForm = function () {
+  var onFormClean = function () {
     addForm.reset();
     addressForm.setAttribute('value', window.map.mainPinPositionFirst);
     resetPage();
   };
 
-  resetForm.addEventListener('click', cleanForm);
 
-  var reloadPage = function () {
-    window.location.reload();
+
+  var onPageReload = function () {
+    resetPage();
     buttonSubmit.removeAttribute('disabled', 'disabled');
-    var errorBox = document.querySelector('.map__pin').querySelector('.error');
-    var successBox = document.querySelector('.map__pin').querySelector('.success');
+    var errorBox = document.querySelector('.error');
+    var successBox = document.querySelector('.success');
     if (document.contains(errorBox)) {
       window.notice.errorMessage.parentNode.removeChild(window.notice.errorMessage);
     } else if (document.contains(successBox)) {
       window.notice.successMessage.parentNode.removeChild(window.notice.successMessage);
     }
-    document.removeEventListener('click', reloadPage);
+    document.removeEventListener('click', onPageReload);
     document.removeEventListener('keydown', onPopupEscPress);
   };
 
@@ -164,31 +162,31 @@
 
   var onPopupEscPress = function (evt) {
     if (evt.keyCode === window.util.escKeycode) {
-      reloadPage();
+      onPageReload();
     }
   };
 
   var saveSuccess = function () {
     window.notice.showSuccess();
-    document.addEventListener('click', reloadPage);
+    document.addEventListener('click', onPageReload);
     document.addEventListener('keydown', onPopupEscPress);
-    cleanForm();
+    onFormClean();
   };
 
   var saveError = function () {
     window.notice.showError();
-    document.addEventListener('click', reloadPage);
+    document.addEventListener('click', onPageReload);
     document.addEventListener('keydown', onPopupEscPress);
   };
 
-  var sendData = function (evt) {
+  var onDataSend = function (evt) {
     evt.preventDefault();
     buttonSubmit.setAttribute('disabled', 'disabled');
     window.backend.save(new FormData(addForm), saveSuccess, saveError);
-    addForm.removeEventListener('submit', sendData);
   };
 
-  addForm.addEventListener('submit', sendData);
+  resetForm.addEventListener('click', onFormClean);
+  addForm.addEventListener('submit', onDataSend);
 
   window.form = {
     domAddressElement: addressForm,

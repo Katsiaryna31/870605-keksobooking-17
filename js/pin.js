@@ -18,9 +18,7 @@
   var deactivateActivePin = function () {
     var pinElementsList = document.querySelectorAll('.map__pin');
     pinElementsList.forEach(function (pinElement) {
-      if (pinElement.classList.contains('map__pin--active')) {
-        pinElement.classList.remove('map__pin--active');
-      }
+      pinElement.classList.remove('map__pin--active');
     });
   };
 
