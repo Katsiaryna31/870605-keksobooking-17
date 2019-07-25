@@ -43,7 +43,7 @@
     window.map.removePins();
     window.card.closeElement();
     var pictureList = document.querySelectorAll('.ad-form__photo > img');
-    pictureList.forEach( function (pictureElement) {
+    pictureList.forEach(function (pictureElement) {
       pictureElement.parentNode.removeChild(pictureElement);
     });
     window.avatar.preview.src = 'img/muffin-grey.svg';
@@ -141,8 +141,6 @@
     addressForm.setAttribute('value', window.map.mainPinPositionFirst);
     resetPage();
   };
-
-
 
   var onPageReload = function () {
     resetPage();

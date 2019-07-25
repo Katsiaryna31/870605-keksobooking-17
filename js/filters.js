@@ -18,7 +18,7 @@
   var successLoad = function (data) {
     pins = data;
     window.map.renderPins(pins.slice(0, numberPins));
-    activateFilters ();
+    activateFilters();
   };
 
   var activateFilters = function () {
@@ -56,22 +56,22 @@
     visiblePins = visiblePins.filter(function (it) {
       var isFiltered = true;
       if (typePlaceSelected && typePlaceSelected !== 'any' && it.offer.type !== typePlaceSelected) {
-        isFiltered =  false;
+        isFiltered = false;
       }
       if (typePriceSelected === 'middle' && it.offer.price < priceLimits.lowPoint && it.offer.price > priceLimits.highPoint) {
-        isFiltered =  false;
+        isFiltered = false;
       } else if (typePriceSelected === 'low' && it.offer.price >= priceLimits.lowPoint) {
-        isFiltered =  false;
+        isFiltered = false;
       } else if (typePriceSelected === 'high' && it.offer.price <= priceLimits.highPoint) {
-        isFiltered =  false;
+        isFiltered = false;
       }
       if (numberRoomsSelected && numberRoomsSelected !== 'any' && it.offer.rooms !== +numberRoomsSelected) {
-        isFiltered =  false;
+        isFiltered = false;
       }
       if (numberGuestsSelected && numberGuestsSelected !== 'any' && numberGuestsSelected !== '0' && it.offer.guests !== +numberGuestsSelected) {
-        isFiltered =  false;
+        isFiltered = false;
       } else if (numberGuestsSelected === '0' && it.offer.guests < guestsLimit) {
-        isFiltered =  false;
+        isFiltered = false;
       }
       var found = 0;
       it.offer.features.forEach(function (offerFeature) {
@@ -82,10 +82,10 @@
         });
       });
       if (featuresSelected.length > 0 && found !== featuresSelected.length) {
-        isFiltered =  false;
+        isFiltered = false;
       }
       return isFiltered;
-      })
+    });
 
     window.map.renderPins(visiblePins.slice(0, numberPins));
     typePlace.removeEventListener('change', function () { });

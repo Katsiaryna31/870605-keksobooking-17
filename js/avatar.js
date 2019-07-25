@@ -8,21 +8,21 @@
 
   fileChooserAvatar.addEventListener('change', function () {
     var file = fileChooserAvatar.files[0];
-      var fileName = file.name.toLowerCase();
+    var fileName = file.name.toLowerCase();
 
-      var matches = FILE_TYPES.some(function (it) {
-       return fileName.endsWith(it);
+    var matches = FILE_TYPES.some(function (it) {
+      return fileName.endsWith(it);
+    });
+
+    if (matches) {
+      var reader = new FileReader();
+
+      reader.addEventListener('load', function () {
+        previewAvatar.src = reader.result;
       });
 
-      if (matches) {
-        var reader = new FileReader();
-
-        reader.addEventListener('load', function () {
-          previewAvatar.src = reader.result;
-        });
-
-        reader.readAsDataURL(file);
-      }
+      reader.readAsDataURL(file);
+    }
   });
 
   window.avatar = {
