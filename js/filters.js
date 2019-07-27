@@ -34,6 +34,7 @@
   });
 
   var typePlace = filters.querySelector('#housing-type');
+  var placesList = typePlace.querySelectorAll('option');
   var housePrice = filters.querySelector('#housing-price');
   var numberRooms = filters.querySelector('#housing-rooms');
   var numberGuests = filters.querySelector('#housing-guests');
@@ -97,9 +98,14 @@
     });
   };
 
+  var resetFilters = function () {
+    filters.reset();
+  };
+
   window.filters = {
     pins: pins,
-    successLoad: successLoad
+    successLoad: successLoad,
+    reset: resetFilters
   };
 
 })();

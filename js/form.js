@@ -42,12 +42,15 @@
     addressForm.value = window.map.mainPinPositionFirst;
     window.map.removePins();
     window.card.closeElement();
-    var pictureList = document.querySelectorAll('.ad-form__photo');
-    for (var a = 1; a < pictureList.length; a++) {
-      pictureList[a].parentNode.removeChild(pictureList[a]);
-    }
-    var placePicture = pictureList[0].querySelector('img');
-    placePicture.parentNode.removeChild(placePicture);
+    var picturesList = document.querySelectorAll('.ad-form__photo > img');
+    picturesList.forEach(function(picture) {
+      picture.parentNode.removeChild(picture);
+    });
+    var placesForPicture = Array.from(document.querySelectorAll('.ad-form__photo'));
+    for (var a = 1; a < placesForPicture.length; a++) {
+      placesForPicture[a].parentNode.removeChild(placesForPicture[a]);
+    };
+    window.filters.reset();
     window.avatar.preview.src = 'img/muffin-grey.svg';
   };
 

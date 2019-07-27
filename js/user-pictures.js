@@ -5,7 +5,7 @@
 
   var fileChooserPicture = document.querySelector('.ad-form__input');
   var previewPicture = document.querySelector('.ad-form__photo');
-  var pictureContainer = document.querySelector('.ad-form__photo-container')
+  var pictureContainer = document.querySelector('.ad-form__photo-container');
 
   fileChooserPicture.addEventListener('change', function () {
     var file = fileChooserPicture.files[0];
@@ -16,6 +16,7 @@
     });
 
     if (matches) {
+
       var reader = new FileReader();
 
       reader.addEventListener('load', function () {
@@ -30,13 +31,17 @@
         picture.classList.add('ad-form-header__preview');
         picture.src = reader.result;
         var picturesList = pictureContainer.querySelectorAll('.ad-form__photo');
-        picturesList.forEach(function (picture) {
-          picture.addEventListener('click', onRemovePicture);
-        });
+        addClickPicture (picturesList);
       });
     };
     reader.readAsDataURL(file);
   });
+
+  var addClickPicture = function (picturesList) {
+    picturesList.forEach(function (picture) {
+      picture.addEventListener('click', onRemovePicture);
+    });
+  };
 
   var onRemovePicture = function () {
     var picturesList = pictureContainer.querySelectorAll('.ad-form__photo');
