@@ -31,9 +31,9 @@
         picture.classList.add('ad-form-header__preview');
         picture.src = reader.result;
         var picturesList = pictureContainer.querySelectorAll('.ad-form__photo');
-        addClickPicture (picturesList);
+        addClickPicture(picturesList);
       });
-    };
+    }
     reader.readAsDataURL(file);
   });
 
@@ -45,12 +45,12 @@
 
   var onRemovePicture = function () {
     var picturesList = pictureContainer.querySelectorAll('.ad-form__photo');
-    if (picturesList.length !== 1) {
-      this.parentNode.removeChild(this);
-    } else {
-      var img = this.querySelector('img');
-      this.removeChild(img);
-    }
+      if (picturesList.length !== 1) {
+        this.parentNode.removeChild(this);
+      } else {
+        var img = this.querySelector('img');
+        this.removeChild(img);
+      }
   };
 
   window.userPicture = {

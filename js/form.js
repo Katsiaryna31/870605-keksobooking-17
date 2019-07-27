@@ -43,13 +43,13 @@
     window.map.removePins();
     window.card.closeElement();
     var picturesList = document.querySelectorAll('.ad-form__photo > img');
-    picturesList.forEach(function(picture) {
+    picturesList.forEach(function (picture) {
       picture.parentNode.removeChild(picture);
     });
     var placesForPicture = Array.from(document.querySelectorAll('.ad-form__photo'));
     for (var a = 1; a < placesForPicture.length; a++) {
       placesForPicture[a].parentNode.removeChild(placesForPicture[a]);
-    };
+    }
     window.filters.reset();
     window.avatar.preview.src = 'img/muffin-grey.svg';
   };
