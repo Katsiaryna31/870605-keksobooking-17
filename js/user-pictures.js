@@ -47,9 +47,9 @@
       } else {
         pictureClicked.removeEventListener('click', onClick);
         pictureClicked.parentNode.removeChild(pictureClicked);
-      };
+      }
     };
-    pictureClicked.addEventListener('click', onClick)
+    pictureClicked.addEventListener('click', onClick);
   };
 
 })();
