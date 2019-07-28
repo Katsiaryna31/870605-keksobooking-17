@@ -38,7 +38,6 @@
   var numberRooms = filters.querySelector('#housing-rooms');
   var numberGuests = filters.querySelector('#housing-guests');
   var features = filters.querySelectorAll('#housing-features > input');
-  var featuresList = Array.from(features);
 
   filters.addEventListener('change', window.debounce(function () {
     typePlaceSelected = typePlace.options[typePlace.selectedIndex].value;
@@ -60,15 +59,15 @@
     }
     if (typePriceSelected === 'middle') {
       visiblePins = visiblePins.filter(function (it) {
-        return it.offer.price >= 10000 && it.offer.price <= 50000;
+        return it.offer.price >= priceLimits.lowPoint && it.offer.price <= priceLimits.highPoint;
       });
     } else if (typePriceSelected === 'low') {
       visiblePins = visiblePins.filter(function (it) {
-        return it.offer.price < 10000;
+        return it.offer.price < priceLimits.lowPoint;
       });
     } else if (typePriceSelected === 'high') {
       visiblePins = visiblePins.filter(function (it) {
-        return it.offer.price > 50000;
+        return it.offer.price > priceLimits.highPoint;
       });
     }
 
@@ -84,7 +83,7 @@
       });
     } else if (numberGuestsSelected === '0') {
       visiblePins = visiblePins.filter(function (it) {
-        return it.offer.guests >= 100;
+        return it.offer.guests >= guestsLimit;
       });
     }
 
@@ -102,8 +101,8 @@
       });
     }
 
-  window.map.renderPins(visiblePins.slice(0, numberPins));
-};
+    window.map.renderPins(visiblePins.slice(0, numberPins));
+  };
 
   var resetFilters = function () {
     filters.reset();
