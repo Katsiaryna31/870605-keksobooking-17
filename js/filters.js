@@ -58,11 +58,11 @@
       if (typePlaceSelected && typePlaceSelected !== 'any' && it.offer.type !== typePlaceSelected) {
         isFiltered = false;
       }
-      if (typePriceSelected === 'middle' && it.offer.price < priceLimits.lowPoint && it.offer.price > priceLimits.highPoint) {
+      if (typePriceSelected !== 'middle' && it.offer.price >= priceLimits.lowPoint && it.offer.price <= priceLimits.highPoint) {
         isFiltered = false;
-      } else if (typePriceSelected === 'low' && it.offer.price >= priceLimits.lowPoint) {
+      } else if (typePriceSelected !== 'low' && it.offer.price < priceLimits.lowPoint) {
         isFiltered = false;
-      } else if (typePriceSelected === 'high' && it.offer.price <= priceLimits.highPoint) {
+      } else if (typePriceSelected !== 'high' && it.offer.price > priceLimits.highPoint) {
         isFiltered = false;
       }
       if (numberRoomsSelected && numberRoomsSelected !== 'any' && it.offer.rooms !== +numberRoomsSelected) {
