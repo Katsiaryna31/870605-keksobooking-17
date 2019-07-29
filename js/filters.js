@@ -38,7 +38,7 @@
   var numberRooms = filters.querySelector('#housing-rooms');
   var numberGuests = filters.querySelector('#housing-guests');
 
-  var onChangeFilters = window.debounce (function () {
+  var onChangeFilters = window.debounce (function() {
     typePlaceSelected = typePlace.options[typePlace.selectedIndex].value;
     typePriceSelected = housePrice.options[housePrice.selectedIndex].value;
     numberRoomsSelected = numberRooms.options[numberRooms.selectedIndex].value;
