@@ -37,7 +37,6 @@
   var housePrice = filters.querySelector('#housing-price');
   var numberRooms = filters.querySelector('#housing-rooms');
   var numberGuests = filters.querySelector('#housing-guests');
-  var features = filters.querySelectorAll('#housing-features > input');
 
   var onChangeFilters = window.debounce (function () {
     typePlaceSelected = typePlace.options[typePlace.selectedIndex].value;
@@ -51,45 +50,44 @@
   filters.addEventListener('change', onChangeFilters);
 
   var updatePins = function () {
-      var visiblePins = pins;
-      window.map.removePins();
-      window.card.closeElement();
-      visiblePins = visiblePins.filter(function (it) {
-        var isFiltered = true;
-        if (typePlaceSelected && typePlaceSelected !== 'any' && it.offer.type !== typePlaceSelected) {
-          isFiltered = false;
-        }
-        if (typePriceSelected !== 'middle' && it.offer.price >= priceLimits.lowPoint && it.offer.price <= priceLimits.highPoint) {
-          isFiltered = false;
-        } else if (typePriceSelected !== 'low' && it.offer.price < priceLimits.lowPoint) {
-          isFiltered = false;
-        } else if (typePriceSelected !== 'high' && it.offer.price > priceLimits.highPoint) {
-          isFiltered = false;
-        }
-        if (numberRoomsSelected && numberRoomsSelected !== 'any' && it.offer.rooms !== +numberRoomsSelected) {
-          isFiltered = false;
-        }
-        if (numberGuestsSelected && numberGuestsSelected !== 'any' && numberGuestsSelected !== '0' && it.offer.guests !== +numberGuestsSelected) {
-          isFiltered = false;
-        } else if (numberGuestsSelected === '0' && it.offer.guests < guestsLimit) {
-          isFiltered = false;
-        }
-        var found = 0;
-        it.offer.features.forEach(function (offerFeature) {
-          featuresSelected.forEach(function (selectedFeature) {
-            if (offerFeature === selectedFeature.value) {
-              found++;
-            }
-          });
+    var visiblePins = pins;
+    window.map.removePins();
+    window.card.closeElement();
+    visiblePins = visiblePins.filter(function (it) {
+      var isFiltered = true;
+      if (typePlaceSelected && typePlaceSelected !== 'any' && it.offer.type !== typePlaceSelected) {
+        isFiltered = false;
+      }
+      if (typePriceSelected === 'middle' && (it.offer.price < priceLimits.lowPoint || it.offer.price > priceLimits.highPoint)) {
+        isFiltered = false;
+      } else if (typePriceSelected === 'low' && it.offer.price >= priceLimits.lowPoint) {
+        isFiltered = false;
+      } else if (typePriceSelected === 'high' && it.offer.price <= priceLimits.highPoint) {
+        isFiltered = false;
+      }
+      if (numberRoomsSelected && numberRoomsSelected !== 'any' && it.offer.rooms !== +numberRoomsSelected) {
+        isFiltered = false;
+      }
+      if (numberGuestsSelected && numberGuestsSelected !== 'any' && numberGuestsSelected !== '0' && it.offer.guests !== +numberGuestsSelected) {
+        isFiltered = false;
+      } else if (numberGuestsSelected === '0' && it.offer.guests < guestsLimit) {
+        isFiltered = false;
+      }
+      var found = 0;
+      it.offer.features.forEach(function (offerFeature) {
+        featuresSelected.forEach(function (selectedFeature) {
+          if (offerFeature === selectedFeature.value) {
+            found++;
+          }
         });
-        if (featuresSelected.length > 0 && found !== featuresSelected.length) {
-          isFiltered = false;
-        }
-        return isFiltered;
       });
-       window.map.renderPins(visiblePins.slice(0, numberPins));
-       filters.removeEventListener('change', onChangeFilters);
-     };
+      if (featuresSelected.length > 0 && found !== featuresSelected.length) {
+        isFiltered = false;
+      }
+      return isFiltered;
+    });
+    window.map.renderPins(visiblePins.slice(0, numberPins));
+  };
 
   var resetFilters = function () {
     filters.reset();
